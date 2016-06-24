@@ -38,11 +38,15 @@ as an object.
 ```php
 class document
 {
-    private $data = array();
+    private $data;
 
 
 
-    public __construct(jsonData = null)
+    public __construct($jsonData = null)
+    {
+        $this->data = is_null($jsonData) ? array() : json_decode($jsonData);
+    }
+
 
 
     public function has($path)
