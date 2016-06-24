@@ -44,7 +44,7 @@ class document
 
     public __construct($jsonData = null)
     {
-        $this->data = is_null($jsonData) ? array() : json_decode($jsonData);
+        $this->data = is_null($jsonData) ? array() : json_decode($jsonData, true);
     }
 
 
