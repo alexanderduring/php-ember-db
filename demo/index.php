@@ -6,7 +6,7 @@ require_once __DIR__.'/../src/DocumentManager.php';
 
 $config = array(
     'database' => array(
-        'path' => __DIR__
+        'path' => __DIR__.'/data'
     ),
     'collections' => array(
         'cars'
