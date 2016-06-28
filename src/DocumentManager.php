@@ -35,7 +35,7 @@ class DocumentManager
         $collectionFilePath = $this->getDatabasePath().'/'.$collectionName.'.edb';
         $collectionFileHandle = fopen($collectionFilePath, 'a');
 
-        // Add entris to end of file
+        // Add entries to end of file
         foreach ($documents as $document) {
             fwrite($collectionFileHandle, json_encode($document)."\n");
         }
