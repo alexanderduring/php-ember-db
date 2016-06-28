@@ -26,8 +26,8 @@ class DocumentManager
     {
         $this->writeLines($collectionName, $documents);
     }
-    
-    
+
+
 
     private function writeLines($collectionName, $documents)
     {
@@ -42,10 +42,10 @@ class DocumentManager
 
         // Close file
         fclose($collectionFileHandle);
-    }        
+    }
 
 
-    
+
     private function getDatabasePath()
     {
         return $this->config['database']['path'];
