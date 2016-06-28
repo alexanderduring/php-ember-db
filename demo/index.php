@@ -19,14 +19,22 @@ $car = array(
     'model' => '325i'
 );
 
-$anotherCar = array(
-    'license-number' => 'HH-EE 1822',
-    'manufacturer' => 'Fiat',
-    'model' => 'Punto',
-    'color' => 'yellow'
+$someCars = array(
+    array(
+        'license-number' => 'HH-EE 1822',
+        'manufacturer' => 'Fiat',
+        'model' => 'Punto',
+        'color' => 'yellow'
+    ),
+    array(
+        'license-number' => 'B-SD 456',
+        'manufacturer' => 'VW',
+        'model' => 'Golf',
+        'color' => 'blue'
+    )
 );
 
 $documentManager = new DocumentManager($config);
 $documentManager->insert('cars', $car);
-$documentManager->insert('cars', $anotherCar);
+$documentManager->insertMany('cars', $someCars);
 
