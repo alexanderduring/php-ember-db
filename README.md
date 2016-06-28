@@ -65,7 +65,7 @@ class document
 
     public function toJson()
     {
-	return json_encode($this->data);
+        return json_encode($this->data);
     }
 }
 ```
