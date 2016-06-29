@@ -48,12 +48,19 @@ class DocumentManager
 
 
 
+    public function remove($collectionName)
+    {
+        unlink($this->getCollectionFilePath($collectionName));
+    }
+
+
+
     private function readEntries($collectionName, $filter)
     {
         $entries = array();
 
         // Open file for reading
-        $collectionFilePath = $this->getDatabasePath().'/'.$collectionName.'.edb';
+        $collectionFilePath = $this->getCollectionFilePath($collectionName);
         $file = fopen($collectionFilePath, 'r');
 
         // Read file line by line
@@ -77,7 +84,7 @@ class DocumentManager
     private function writeEntries($collectionName, $documents)
     {
         // Open or create file for writing
-        $collectionFilePath = $this->getDatabasePath().'/'.$collectionName.'.edb';
+        $collectionFilePath = $this->getCollectionFilePath($collectionName);
         $collectionFileHandle = fopen($collectionFilePath, 'a');
 
         // Add entries to end of file
@@ -87,6 +94,13 @@ class DocumentManager
 
         // Close file
         fclose($collectionFileHandle);
+    }
+
+
+
+    private function getCollectionFilePath($collectionName)
+    {
+        return $this->getDatabasePath().'/'.$collectionName.'.edb';
     }
 
 
