@@ -2,6 +2,7 @@
 
 namespace EmberDb;
 
+require_once __DIR__.'/../src/Document.php';
 require_once __DIR__.'/../src/DocumentManager.php';
 
 $config = array(
@@ -38,8 +39,8 @@ $documentManager = new DocumentManager($config);
 $documentManager->insert('cars', $car);
 $documentManager->insertMany('cars', $someCars);
 
-$results = $documentManager->find('cars', null);
+$documents = $documentManager->find('cars', null);
 
-foreach ($results as $result) {
-    echo $result."\n";
+foreach ($documents as $document) {
+    echo $document->toJson()."\n";
 }

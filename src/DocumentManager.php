@@ -29,9 +29,21 @@ class DocumentManager
 
 
 
+    /**
+     * @param string $collectionName
+     * @param array $filter
+     * @return Document[]
+     */
     public function find($collectionName, $filter)
     {
-        return $this->readLines($collectionName, $filter);
+        $documents = array();
+
+        $lines = $this->readLines($collectionName, $filter);
+        foreach ($lines as $line) {
+            $documents[] = new Document($line);
+        }
+
+        return $documents;
     }
 
 
