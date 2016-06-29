@@ -38,3 +38,8 @@ $documentManager = new DocumentManager($config);
 $documentManager->insert('cars', $car);
 $documentManager->insertMany('cars', $someCars);
 
+$results = $documentManager->find('cars', null);
+
+foreach ($results as $result) {
+    echo $result."\n";
+}

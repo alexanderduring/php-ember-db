@@ -29,9 +29,41 @@ class DocumentManager
 
 
 
+    public function find($collectionName, $filter)
+    {
+        return $this->readLines($collectionName, $filter);
+    }
+
+
+
+    private function readLines($collectionName, $filter)
+    {
+        $lines = array();
+
+        // Open file for reading
+        $collectionFilePath = $this->getDatabasePath().'/'.$collectionName.'.edb';
+        $file = fopen($collectionFilePath, 'r');
+
+        // Read file line by line
+        while (($buffer = fgets($file)) !== false) {
+            $lines[] = trim($buffer);
+        }
+
+        if (!feof($file)) {
+            throw new Exception('File pointer does not point to end of file.');
+        }
+
+        // Close file
+        fclose($file);
+
+        return $lines;
+    }
+
+
+
     private function writeLines($collectionName, $documents)
     {
-        // Open or create file
+        // Open or create file for writing
         $collectionFilePath = $this->getDatabasePath().'/'.$collectionName.'.edb';
         $collectionFileHandle = fopen($collectionFilePath, 'a');
 
