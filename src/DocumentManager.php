@@ -17,14 +17,14 @@ class DocumentManager
 
     public function insert($collectionName, $document)
     {
-        $this->writeLines($collectionName, array($document));
+        $this->writeEntries($collectionName, array($document));
     }
 
 
 
     public function insertMany($collectionName, $documents)
     {
-        $this->writeLines($collectionName, $documents);
+        $this->writeEntries($collectionName, $documents);
     }
 
 
@@ -38,9 +38,9 @@ class DocumentManager
     {
         $documents = array();
 
-        $lines = $this->readLines($collectionName, $filter);
-        foreach ($lines as $line) {
-            $documents[] = new Document($line);
+        $entries = $this->readEntries($collectionName, $filter);
+        foreach ($entries as $entry) {
+            $documents[] = new Document($entry);
         }
 
         return $documents;
@@ -48,9 +48,9 @@ class DocumentManager
 
 
 
-    private function readLines($collectionName, $filter)
+    private function readEntries($collectionName, $filter)
     {
-        $lines = array();
+        $entries = array();
 
         // Open file for reading
         $collectionFilePath = $this->getDatabasePath().'/'.$collectionName.'.edb';
@@ -58,7 +58,8 @@ class DocumentManager
 
         // Read file line by line
         while (($buffer = fgets($file)) !== false) {
-            $lines[] = trim($buffer);
+            $entry = json_decode(trim($buffer));
+            $entries[] = $entry;
         }
 
         if (!feof($file)) {
@@ -68,12 +69,12 @@ class DocumentManager
         // Close file
         fclose($file);
 
-        return $lines;
+        return $entries;
     }
 
 
 
-    private function writeLines($collectionName, $documents)
+    private function writeEntries($collectionName, $documents)
     {
         // Open or create file for writing
         $collectionFilePath = $this->getDatabasePath().'/'.$collectionName.'.edb';

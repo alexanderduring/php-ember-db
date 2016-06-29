@@ -7,9 +7,9 @@ class Document
     private $data;
 
 
-    public function __construct($jsonData = null)
+    public function __construct($data = array())
     {
-        $this->data = is_null($jsonData) ? array() : json_decode($jsonData, true);
+        $this->data = $data;
     }
 
 
