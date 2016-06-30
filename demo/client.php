@@ -21,10 +21,14 @@ while (!$quit) {
 
         switch ($command[0]) {
             case 'insert':
-                echo "You want to insert something.\n";
+                $collection = $command[1];
+                $document = $command[2];
+                echo "You want to insert $document in the $collection collection.\n";
                 break;
             case 'find':
-                echo "You want to find something.\n";
+                $collection = $command[1];
+                $filter = $command[2];
+                echo "You want to find something in the $command[1] collection that matches $filter.\n";
                 break;
             default:
                 echo "Syntax error: Unknown command '".$command[0]."'.\n";
