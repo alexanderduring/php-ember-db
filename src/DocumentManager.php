@@ -50,7 +50,10 @@ class DocumentManager
 
     public function remove($collectionName)
     {
-        unlink($this->getCollectionFilePath($collectionName));
+        $filePath = $this->getCollectionFilePath($collectionName);
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
     }
 
 
