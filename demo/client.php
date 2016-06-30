@@ -15,8 +15,19 @@ while (!$quit) {
     if ("quit\n" == $next_line) {
         $quit = true;
     } else {
-        $message = $next_line;
+        $message = trim($next_line);
         $command = explode(' ', $message);
         print_r($command);
+
+        switch ($command[0]) {
+            case 'insert':
+                echo "You want to insert something.\n";
+                break;
+            case 'find':
+                echo "You want to find something.\n";
+                break;
+            default:
+                echo "Syntax error: Unknown command '".$command[0]."'.\n";
+        }
     }
 }
