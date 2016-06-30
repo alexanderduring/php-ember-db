@@ -34,7 +34,7 @@ class DocumentManager
      * @param array $filter
      * @return Document[]
      */
-    public function find($collectionName, $filter)
+    public function find($collectionName, $filter = array())
     {
         $documents = array();
 
@@ -68,8 +68,11 @@ class DocumentManager
 
         // Read file line by line
         while (($buffer = fgets($file)) !== false) {
-            $entry = json_decode(trim($buffer));
-            $entries[] = $entry;
+            $entry = json_decode(trim($buffer), true);
+            // Match entry against filter
+            if ($this->matchesFilter($entry, $filter)) {
+                $entries[] = $entry;
+            }
         }
 
         if (!feof($file)) {
@@ -80,6 +83,18 @@ class DocumentManager
         fclose($file);
 
         return $entries;
+    }
+
+
+
+    private function matchesFilter($entry, $filter)
+    {
+        $isMatch = true;
+        foreach ($filter as $key => $value) {
+            $isMatch = array_key_exists($key, $entry) && $entry[$key] == $value && $isMatch;
+        }
+
+        return $isMatch;
     }
 
 

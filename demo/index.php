@@ -28,6 +28,11 @@ $someCars = array(
         'color' => 'yellow'
     ),
     array(
+        'manufacturer' => 'Fiat',
+        'model' => 'Uno',
+        'color' => 'blue'
+    ),
+    array(
         'license-number' => 'B-SD 456',
         'manufacturer' => 'VW',
         'model' => 'Golf',
@@ -45,8 +50,17 @@ $documentManager->insert('cars', $car);
 $documentManager->insertMany('cars', $someCars);
 
 // Query the collection and output the result
-$documents = $documentManager->find('cars', null);
-
+$documents = $documentManager->find('cars');
+echo "\nAll cars in the collection:\n";
 foreach ($documents as $document) {
     echo $document->toJson()."\n";
 }
+
+// Query the collection and output the result
+$documents = $documentManager->find('cars', array('color' => 'blue'));
+echo "\nAll blue cars in the collection:\n";
+foreach ($documents as $document) {
+    echo $document->toJson()."\n";
+}
+
+echo "\n";
