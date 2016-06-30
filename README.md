@@ -1,14 +1,13 @@
 # php-ember-db
 
-This should be a light, embeddable implementation of a document based database 
-for php projects. It should support the basic CRUD operation like
+EmberDb is planned to be a light, embeddable implementation of a document based database
+for php projects. To try it out just clone the repository and in the project home type
 
-  - Create
-  - Read
-  - Update
-  - Delete
+```
+$ php demo/index.php
+```
 
-and work on documents and collections.
+You will see some example output of creating a collection, inserting documents und querying for documents.
 
 ## Implemetation Brainstorming
 
