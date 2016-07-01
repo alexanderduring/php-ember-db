@@ -1,13 +1,11 @@
 <?php
 
+use EmberDb\DocumentManager;
 use EmberDb\Interpreter;
 
 require_once __DIR__ . '/../src/EmberDb/Document.php';
 require_once __DIR__ . '/../src/EmberDb/DocumentManager.php';
 require_once __DIR__ . '/../src/EmberDb/Interpreter.php';
-
-echo "\nEmberDb command line client.\n";
-echo "Type your command followed by <return>. Type 'help' to get a command overview or 'exit' to leave the client.\n\n";
 
 // command line options
 $longopts = array(
@@ -23,10 +21,18 @@ if ($workingDirectory[0] != '/') {
 $workingDirectory = realpath($workingDirectory);
 echo 'Working directory: '.$workingDirectory."\n";
 
+// Setup DocumentManager
+$config = array('database' => array('path' => $workingDirectory));
+$documentManager = new DocumentManager($config);
 
+// Set up Interpreter
 $inputStream = fopen('php://stdin', 'r');
 $quit = false;
 $interpreter = new Interpreter();
+$interpreter->injectDocumentManager($documentManager);
+
+echo "\nEmberDb command line client.\n";
+echo "Type your command followed by <return>. Type 'help' to get a command overview or 'exit' to leave the client.\n\n";
 
 while (!$quit) {
     echo '> ';

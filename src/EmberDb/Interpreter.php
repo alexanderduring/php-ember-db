@@ -4,6 +4,21 @@ namespace EmberDb;
 
 class Interpreter
 {
+    /** @var \EmberDb\DocumentManager */
+    private $documentManager;
+
+
+
+    /**
+     * @param \EmberDb\DocumentManager $documentManager
+     */
+    public function injectDocumentManager(DocumentManager $documentManager)
+    {
+        $this->documentManager = $documentManager;
+    }
+
+
+
     public function execute($inputLine)
     {
         $output = '';
