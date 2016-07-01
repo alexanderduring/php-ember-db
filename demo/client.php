@@ -8,7 +8,8 @@ require_once __DIR__ . '/../src/EmberDb/Interpreter.php';
 
 $interpreter = new Interpreter();
 
-echo "\nEmberDb command line client.\nType your command followed by <return>. Type 'help' to get a command overview or 'exit' to leave the client.\n\n";
+echo "\nEmberDb command line client.\n";
+echo "Type your command followed by <return>. Type 'help' to get a command overview or 'exit' to leave the client.\n\n";
 
 
 $inputStream = fopen('php://stdin', 'r');
