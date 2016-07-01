@@ -11,6 +11,13 @@ $interpreter = new Interpreter();
 echo "\nEmberDb command line client.\n";
 echo "Type your command followed by <return>. Type 'help' to get a command overview or 'exit' to leave the client.\n\n";
 
+$longopts = array(
+    "directory::"
+);
+$options = getopt('', $longopts);
+
+$workingDirectory = array_key_exists('directory', $options) ? './'.$options['directory'] : '.';
+echo 'Working directory: '.$workingDirectory."\n";
 
 $inputStream = fopen('php://stdin', 'r');
 $quit = false;
