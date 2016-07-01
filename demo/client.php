@@ -6,21 +6,27 @@ require_once __DIR__ . '/../src/EmberDb/Document.php';
 require_once __DIR__ . '/../src/EmberDb/DocumentManager.php';
 require_once __DIR__ . '/../src/EmberDb/Interpreter.php';
 
-$interpreter = new Interpreter();
-
 echo "\nEmberDb command line client.\n";
 echo "Type your command followed by <return>. Type 'help' to get a command overview or 'exit' to leave the client.\n\n";
 
+// command line options
 $longopts = array(
     "directory::"
 );
 $options = getopt('', $longopts);
 
-$workingDirectory = array_key_exists('directory', $options) ? './'.$options['directory'] : '.';
+// working directory
+$workingDirectory = array_key_exists('directory', $options) ? $options['directory'] : '.';
+if ($workingDirectory[0] != '/') {
+    $workingDirectory = './'.$workingDirectory;
+}
+$workingDirectory = realpath($workingDirectory);
 echo 'Working directory: '.$workingDirectory."\n";
+
 
 $inputStream = fopen('php://stdin', 'r');
 $quit = false;
+$interpreter = new Interpreter();
 
 while (!$quit) {
     echo '> ';
