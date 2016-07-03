@@ -8,6 +8,11 @@ $ php demo/index.php
 ```
 
 You will see some example output of creating a collection, inserting documents und querying for documents.
+There is also a command line client which you can start with
+
+```
+$ php demo/client.php
+```
 
 ## Implemetation Brainstorming
 
