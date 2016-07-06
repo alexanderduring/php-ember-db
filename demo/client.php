@@ -27,13 +27,14 @@ $documentManager = new DocumentManager($config);
 
 // Set up Interpreter
 $inputStream = fopen('php://stdin', 'r');
-$quit = false;
 $interpreter = new Interpreter();
 $interpreter->injectDocumentManager($documentManager);
 
 echo "\nEmberDb command line client.\n";
 echo "Type your command followed by <return>. Type 'help' to get a command overview or 'exit' to leave the client.\n\n";
 
+// Start command input loop
+$quit = false;
 while (!$quit) {
     echo '> ';
     $inputLine = trim(fgets($inputStream));
