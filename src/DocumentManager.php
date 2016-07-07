@@ -2,6 +2,8 @@
 
 namespace EmberDb;
 
+use EmberDb\Exception;
+
 class DocumentManager
 {
     private $config;
@@ -10,7 +12,21 @@ class DocumentManager
 
     public function __construct($config = array())
     {
-        $this->config = $config;
+        try {
+            if (!array_key_exists('database', $config)) throw new Exception('The config has no entry with key "database".');
+            if (!array_key_exists('path', $config['database'])) throw new Exception('The config has no entry with key "database/path".');
+            $this->config = $config;
+        }
+        catch (Exception $exception) {
+            throw new Exception('Missing config: '.$exception->getMessage());
+        }
+    }
+
+
+
+    public function getDatabasePath()
+    {
+        return $this->config['database']['path'];
     }
 
 
@@ -119,12 +135,5 @@ class DocumentManager
     private function getCollectionFilePath($collectionName)
     {
         return $this->getDatabasePath().'/'.$collectionName.'.edb';
-    }
-
-
-
-    private function getDatabasePath()
-    {
-        return $this->config['database']['path'];
     }
 }

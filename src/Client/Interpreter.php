@@ -33,25 +33,29 @@ class Interpreter
             case 'insert':
                 $collection = $parameters[0];
                 $document = $parameters[1];
-                $output .= "You want to insert $document in the $collection collection.\n\n";
+                $output .= "You want to insert $document in the $collection collection.";
                 break;
             case 'find':
                 $collection = $parameters[0];
                 $filter = $parameters[1];
-                $output .= "You want to find something in the $collection collection that matches $filter.\n\n";
+                $output .= "You want to find something in the $collection collection that matches $filter.";
+                break;
+            case 'pwd':
+                $output .= $this->documentManager->getDatabasePath();
                 break;
             case 'help':
                 $output .= "Available commands:\n";
                 $output .= "   insert <collection> <document>   Insert the document <document> into the collection <collection>.\n";
                 $output .= "   find <collection> <filter>       Find all documents into the collection <collection> that match <filter>.\n";
+                $output .= "   pwd                              Print working directory.\n";
                 $output .= "   help                             Display this help.\n";
-                $output .= "   exit                             Exit this client.\n";
-                $output .= "\n";
+                $output .= "   exit                             Exit this client.";
                 break;
             default:
-                $output .= "Syntax error: Unknown command '".$command."'.\n\n";
+                $output .= "Syntax error: Unknown command '".$command."'.";
         }
 
+        $output .= "\n\n";
         return $output;
     }
 }
