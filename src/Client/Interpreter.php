@@ -2,6 +2,7 @@
 
 namespace EmberDb\Client;
 
+use EmberDb\Client\Exception;
 use EmberDb\DocumentManager;
 
 class Interpreter
@@ -31,17 +32,28 @@ class Interpreter
         print_r($tokens);
         switch ($command) {
             case 'insert':
-                $collection = $parameters[0];
-                $document = $parameters[1];
-                $output .= "You want to insert $document in the $collection collection.";
+                try {
+                    if (count($parameters) != 2) throw new Exception('Incorrect number of parameters for command "insert".');
+                    $collection = $parameters[0];
+                    $document = json_decode($parameters[1], true);
+                    if ($document === null) throw new Exception('The description of the document is not a valid json.');
+                    $this->documentManager->insert($collection, $document);
+                    $output .= "Inserted document in the $collection collection.\n";
+                }
+                catch (Exception $exception) {
+                    $output .= "Error: ".$exception->getMessage()."\n";
+                }
                 break;
             case 'find':
                 $collection = $parameters[0];
-                $filter = $parameters[1];
-                $output .= "You want to find something in the $collection collection that matches $filter.";
+                $filter = count($parameters) == 2 ? json_decode($parameters[1]) : array();
+                $documents = $this->documentManager->find($collection);
+                foreach ($documents as $document) {
+                    $output .= $document->toJson()."\n";
+                }
                 break;
             case 'pwd':
-                $output .= $this->documentManager->getDatabasePath();
+                $output .= $this->documentManager->getDatabasePath()."\n";
                 break;
             case 'help':
                 $output .= "Available commands:\n";
@@ -49,12 +61,12 @@ class Interpreter
                 $output .= "   find <collection> <filter>       Find all documents into the collection <collection> that match <filter>.\n";
                 $output .= "   pwd                              Print working directory.\n";
                 $output .= "   help                             Display this help.\n";
-                $output .= "   exit                             Exit this client.";
+                $output .= "   exit                             Exit this client.\n";
                 break;
             default:
-                $output .= "Syntax error: Unknown command '".$command."'.";
+                $output .= "Syntax error: Unknown command '".$command."'.\n";
         }
-        $output .= "\n\n";
+        $output .= "\n";
 
         return $output;
     }
