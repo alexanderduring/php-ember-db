@@ -1,7 +1,7 @@
 <?php
 
+use EmberDb\Client\Interpreter;
 use EmberDb\DocumentManager;
-use EmberDb\Interpreter;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 

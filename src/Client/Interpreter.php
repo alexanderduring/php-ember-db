@@ -1,6 +1,8 @@
 <?php
 
-namespace EmberDb;
+namespace EmberDb\Client;
+
+use EmberDb\DocumentManager;
 
 class Interpreter
 {
