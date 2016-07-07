@@ -1,26 +1,16 @@
 <?php
 
 use EmberDb\Client\Interpreter;
+use EmberDb\Client\Options;
 use EmberDb\DocumentManager;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// command line options
-$longopts = array(
-    "directory::"
-);
-$options = getopt('', $longopts);
-
-// working directory
-$workingDirectory = array_key_exists('directory', $options) ? $options['directory'] : '.';
-if ($workingDirectory[0] != '/') {
-    $workingDirectory = './'.$workingDirectory;
-}
-$workingDirectory = realpath($workingDirectory);
-echo 'Working directory: '.$workingDirectory."\n";
+$options = new Options();
+echo 'Working directory: '.$options->workingDirectory."\n";
 
 // Setup DocumentManager
-$config = array('database' => array('path' => $workingDirectory));
+$config = array('database' => array('path' => $options->workingDirectory));
 $documentManager = new DocumentManager($config);
 
 // Set up Interpreter
