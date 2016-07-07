@@ -2,8 +2,7 @@
 
 use EmberDb\DocumentManager;
 
-require_once __DIR__ . '/../src/Document.php';
-require_once __DIR__ . '/../src/DocumentManager.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $config = array(
     'database' => array(

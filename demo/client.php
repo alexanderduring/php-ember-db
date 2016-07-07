@@ -3,9 +3,7 @@
 use EmberDb\DocumentManager;
 use EmberDb\Interpreter;
 
-require_once __DIR__ . '/../src/Document.php';
-require_once __DIR__ . '/../src/DocumentManager.php';
-require_once __DIR__ . '/../src/Interpreter.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 // command line options
 $longopts = array(

@@ -5,6 +5,11 @@
     "keywords": [
     ],
     "homepage": "https://github.com/alexanderduring/php-ember-db",
+    "autoload": {
+        "psr-4": {
+            "EmberDb\\": "src/"
+        }
+    },
     "require": {
         "php": ">=5.6.23"
     },
