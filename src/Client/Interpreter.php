@@ -54,8 +54,8 @@ class Interpreter
             default:
                 $output .= "Syntax error: Unknown command '".$command."'.";
         }
-
         $output .= "\n\n";
+
         return $output;
     }
 }
