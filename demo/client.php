@@ -14,7 +14,6 @@ $config = array('database' => array('path' => $options->workingDirectory));
 $documentManager = new DocumentManager($config);
 
 // Set up Interpreter
-$inputStream = fopen('php://stdin', 'r');
 $interpreter = new Interpreter();
 $interpreter->injectDocumentManager($documentManager);
 
@@ -24,8 +23,8 @@ echo "Type your command followed by <return>. Type 'help' to get a command overv
 // Start command input loop
 $quit = false;
 while (!$quit) {
-    echo '> ';
-    $inputLine = trim(fgets($inputStream));
+    $inputLine = trim(readline('> '));
+    readline_add_history($inputLine);
     if ($inputLine == 'exit') {
         $quit = true;
         $output = "Closing EmberDb command line client.\n\n";
