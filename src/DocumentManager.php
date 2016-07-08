@@ -3,6 +3,7 @@
 namespace EmberDb;
 
 use EmberDb\Exception;
+use EmberDb\Filter;
 
 class DocumentManager
 {
@@ -74,9 +75,11 @@ class DocumentManager
 
 
 
-    private function readEntries($collectionName, $filter)
+    private function readEntries($collectionName, $filterArray)
     {
         $entries = array();
+
+        $filter = new Filter($filterArray);
 
         // Open file for reading
         $collectionFilePath = $this->getCollectionFilePath($collectionName);
@@ -86,7 +89,7 @@ class DocumentManager
         while (($buffer = fgets($file)) !== false) {
             $entry = json_decode(trim($buffer), true);
             // Match entry against filter
-            if ($this->matchesFilter($entry, $filter)) {
+            if ($filter->matchesEntry($entry)) {
                 $entries[] = $entry;
             }
         }
@@ -99,18 +102,6 @@ class DocumentManager
         fclose($file);
 
         return $entries;
-    }
-
-
-
-    private function matchesFilter($entry, $filter)
-    {
-        $isMatch = true;
-        foreach ($filter as $key => $value) {
-            $isMatch = array_key_exists($key, $entry) && $entry[$key] == $value && $isMatch;
-        }
-
-        return $isMatch;
     }
 
 
