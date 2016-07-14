@@ -29,7 +29,7 @@ class Interpreter
         $tokens = explode(' ', $inputLine);
         $command = array_shift($tokens);
         $parameters = $tokens;
-        print_r($tokens);
+
         switch ($command) {
             case 'insert':
                 try {
