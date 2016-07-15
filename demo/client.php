@@ -2,15 +2,15 @@
 
 use EmberDb\Client\Client;
 use EmberDb\Client\Interpreter;
-use EmberDb\Client\Options;
 use EmberDb\DocumentManager;
 use EmberDb\Client\LineReader\LineReader;
 use EmberDb\Client\LineReader\LineReaderFallback;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+$serviceLocator = new \EmberDb\ServiceLocator();
 
-$options = new Options();
+$options = $serviceLocator->getOptions();
 echo 'Working directory: '.$options->workingDirectory."\n";
 
 // Setup DocumentManager
