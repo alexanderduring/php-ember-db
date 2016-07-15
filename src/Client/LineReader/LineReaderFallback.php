@@ -2,7 +2,7 @@
 
 namespace EmberDb\Client\LineReader;
 
-class LineReaderFallback
+class LineReaderFallback implements LineReaderInterface
 {
     private $prompt = '';
 
