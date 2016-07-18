@@ -7,27 +7,28 @@ use EmberDb\Filter;
 
 class DocumentManager
 {
-    private $config;
-
-
-
-    public function __construct($config = array())
-    {
-        try {
-            if (!array_key_exists('database', $config)) throw new Exception('The config has no entry with key "database".');
-            if (!array_key_exists('path', $config['database'])) throw new Exception('The config has no entry with key "database/path".');
-            $this->config = $config;
-        }
-        catch (Exception $exception) {
-            throw new Exception('Missing config: '.$exception->getMessage());
-        }
-    }
+    private $config = array();
 
 
 
     public function getDatabasePath()
     {
+        try {
+            if (!array_key_exists('database', $this->config)) throw new Exception('The config has no entry with key "database".');
+            if (!array_key_exists('path', $this->config['database'])) throw new Exception('The config has no entry with key "database/path".');
+        }
+        catch (Exception $exception) {
+            throw new Exception('Missing config: '.$exception->getMessage());
+        }
+
         return $this->config['database']['path'];
+    }
+
+
+
+    public function setDatabasePath($path)
+    {
+        $this->config['database']['path'] = $path;
     }
 
 
