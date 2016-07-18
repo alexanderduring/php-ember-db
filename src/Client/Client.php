@@ -6,14 +6,29 @@ use EmberDb\Client\LineReader\LineReaderInterface;
 
 class Client
 {
+    /** @var \EmberDb\Client\Interpreter */
     private $interpreter;
 
+    /** @var \EmberDb\Client\LineReader\LineReaderInterface */
     private $lineReader;
+
+    /** @var \EmberDb\Client\Options */
+    private $options;
 
 
 
     /**
-     * @param Interpreter $interpreter
+     * @param \EmberDb\Client\Options $options
+     */
+    public function injectOptions(Options $options)
+    {
+        $this->options = $options;
+    }
+
+
+
+    /**
+     * @param \EmberDb\Client\Interpreter $interpreter
      */
     public function injectInterpreter(Interpreter $interpreter)
     {
@@ -23,7 +38,7 @@ class Client
 
 
     /**
-     * @param LineReaderInterface $lineReader
+     * @param \EmberDb\Client\LineReader\LineReaderInterface $lineReader
      */
     public function injectLineReader(LineReaderInterface $lineReader)
     {

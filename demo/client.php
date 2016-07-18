@@ -1,6 +1,5 @@
 <?php
 
-use EmberDb\Client\Client;
 use EmberDb\Client\Interpreter;
 use EmberDb\Client\LineReader\LineReader;
 use EmberDb\Client\LineReader\LineReaderFallback;
@@ -29,7 +28,7 @@ if (!function_exists('readline')) {
     $lineReader = new LineReader('$ ');
 }
 
-$client = new Client();
+$client = $serviceLocator->getClient();
 $client->injectInterpreter($interpreter);
 $client->injectLineReader($lineReader);
 

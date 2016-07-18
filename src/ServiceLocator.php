@@ -2,11 +2,29 @@
 
 namespace EmberDb;
 
+use EmberDb\Client\Client;
 use EmberDb\Client\Options;
 
 class ServiceLocator
 {
     private $instances = array();
+
+
+
+    /**
+     * @return \EmberDb\Client\Client
+     */
+    public function getClient()
+    {
+        $name = 'EmberDb\Client\Client';
+        if (!array_key_exists($name, $this->instances)) {
+            $client = $this->buildClient();
+            $this->instances[$name] = $client;
+        }
+
+        return $this->instances[$name];
+    }
+
 
 
     /**
@@ -26,7 +44,7 @@ class ServiceLocator
 
 
     /**
-     * @return Options
+     * @return \EmberDb\Client\Options
      */
     public function getOptions()
     {
@@ -39,7 +57,23 @@ class ServiceLocator
     }
 
 
+    /**
+     * @return \EmberDb\Client\Client
+     */
+    private function buildClient()
+    {
+        $client = new Client();
 
+        $options = $this->getOptions();
+        $client->injectOptions($options);
+
+        return $client;
+    }
+
+
+    /**
+     * @return \EmberDb\DocumentManager
+     */
     private function buildDocumentManager()
     {
         $documentManager = new DocumentManager();
