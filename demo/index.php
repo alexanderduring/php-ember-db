@@ -4,15 +4,6 @@ use EmberDb\DocumentManager;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$config = array(
-    'database' => array(
-        'path' => __DIR__.'/data'
-    ),
-    'collections' => array(
-        'cars'
-    )
-);
-
 $car = array(
     'license-number' => 'HH-DS 1243',
     'manufacturer' => 'BMW',
@@ -24,22 +15,38 @@ $someCars = array(
         'license-number' => 'HH-EE 1822',
         'manufacturer' => 'Fiat',
         'model' => 'Punto',
-        'color' => 'yellow'
+        'year' => 1993,
+        'color' => 'yellow',
+        'engine' => array(
+            'powerInKw' => 40,
+            'displacementInLiters' => 1.1
+        )
     ),
     array(
         'manufacturer' => 'Fiat',
         'model' => 'Uno',
-        'color' => 'blue'
+        'year' => 1983,
+        'color' => 'blue',
+        'engine' => array(
+            'powerInKw' => 32,
+            'displacementInLiters' => 0.9
+        )
     ),
     array(
         'license-number' => 'B-SD 456',
         'manufacturer' => 'VW',
         'model' => 'Golf',
-        'color' => 'blue'
+        'year' => 1974,
+        'color' => 'blue',
+        'engine' => array(
+            'powerInKw' => 37,
+            'displacementInLiters' => 1.1
+        )
     )
 );
 
-$documentManager = new DocumentManager($config);
+$documentManager = new DocumentManager();
+$documentManager->setDatabasePath(__DIR__.'/data');
 
 // Remove existing collection (from last run of this script)
 $documentManager->remove('cars');
