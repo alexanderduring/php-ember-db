@@ -2,6 +2,10 @@
 
 namespace EmberDb\Client;
 
+/**
+ * The class Options is responsible for representing the provided
+ * command line options at start up.
+ */
 class Options
 {
     public $workingDirectory;

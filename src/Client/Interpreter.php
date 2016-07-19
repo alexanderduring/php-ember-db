@@ -5,6 +5,12 @@ namespace EmberDb\Client;
 use EmberDb\Client\Exception;
 use EmberDb\DocumentManager;
 
+/**
+ * The responsibility of the class Interpreter is parsing the
+ * input line and finding the right command and parameters.
+ * Currently it also executes the command by invoking it on
+ * the document manager. It also renders a help view.
+ */
 class Interpreter
 {
     /** @var \EmberDb\DocumentManager */

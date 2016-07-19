@@ -2,6 +2,10 @@
 
 namespace EmberDb\Client\LineReader;
 
+/**
+ * The class LineReader is responsible for reading input lines
+ * using the readline command.
+ */
 class LineReader implements LineReaderInterface
 {
     private $prompt = '';

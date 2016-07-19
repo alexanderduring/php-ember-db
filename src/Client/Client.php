@@ -4,6 +4,12 @@ namespace EmberDb\Client;
 
 use EmberDb\Client\LineReader\LineReaderInterface;
 
+/**
+ * The main responsibility of the class Client is to continuously read
+ * input lines from the user and forward them to the interpreter until
+ * the exit command is given.
+ * A second responsibility is to handle command line options.
+ */
 class Client
 {
     /** @var \EmberDb\Client\Interpreter */

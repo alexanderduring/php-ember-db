@@ -2,6 +2,10 @@
 
 namespace EmberDb\Client\LineReader;
 
+/**
+ * The class LineReaderFallback is responsible for reading input lines
+ * using the fgets command.
+ */
 class LineReaderFallback implements LineReaderInterface
 {
     private $prompt = '';
