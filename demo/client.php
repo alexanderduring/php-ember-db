@@ -1,8 +1,8 @@
 <?php
 
-use EmberDb\Client\Interpreter;
 use EmberDb\Client\LineReader\LineReader;
 use EmberDb\Client\LineReader\LineReaderFallback;
+use EmberDb\Client\Parser\Parser;
 use EmberDb\ServiceLocator;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -17,8 +17,8 @@ $documentManager = $serviceLocator->getDocumentManager();
 $documentManager->setDatabasePath($options->workingDirectory);
 
 // Set up Interpreter
-$interpreter = new Interpreter();
-$interpreter->injectDocumentManager($documentManager);
+$parser = new Parser();
+$parser->injectDocumentManager($documentManager);
 
 // Check readline support
 if (!function_exists('readline')) {
@@ -29,7 +29,7 @@ if (!function_exists('readline')) {
 }
 
 $client = $serviceLocator->getClient();
-$client->injectInterpreter($interpreter);
+$client->injectParser($parser);
 $client->injectLineReader($lineReader);
 
 $client->start();

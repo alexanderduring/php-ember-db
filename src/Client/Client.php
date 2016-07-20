@@ -3,6 +3,7 @@
 namespace EmberDb\Client;
 
 use EmberDb\Client\LineReader\LineReaderInterface;
+use EmberDb\Client\Parser\Parser;
 
 /**
  * The main responsibility of the class Client is to continuously read
@@ -12,8 +13,8 @@ use EmberDb\Client\LineReader\LineReaderInterface;
  */
 class Client
 {
-    /** @var \EmberDb\Client\Interpreter */
-    private $interpreter;
+    /** @var \EmberDb\Client\Parser\Parser */
+    private $parser;
 
     /** @var \EmberDb\Client\LineReader\LineReaderInterface */
     private $lineReader;
@@ -34,11 +35,11 @@ class Client
 
 
     /**
-     * @param \EmberDb\Client\Interpreter $interpreter
+     * @param \EmberDb\Client\Parser\Parser $parser
      */
-    public function injectInterpreter(Interpreter $interpreter)
+    public function injectParser(Parser $parser)
     {
-        $this->interpreter = $interpreter;
+        $this->parser = $parser;
     }
 
 
@@ -67,7 +68,7 @@ class Client
                 $quit = true;
                 $output = "Closing EmberDb command line client.\n\n";
             } else {
-                $output = $this->interpreter->execute($inputLine);
+                $output = $this->parser->execute($inputLine);
             }
 
             echo $output;
