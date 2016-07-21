@@ -13,24 +13,13 @@ use EmberDb\Client\Parser\Parser;
  */
 class Client
 {
+    use InjectOptionsTrait;
+
     /** @var \EmberDb\Client\Parser\Parser */
     private $parser;
 
     /** @var \EmberDb\Client\LineReader\LineReaderInterface */
     private $lineReader;
-
-    /** @var \EmberDb\Client\Options */
-    private $options;
-
-
-
-    /**
-     * @param \EmberDb\Client\Options $options
-     */
-    public function injectOptions(Options $options)
-    {
-        $this->options = $options;
-    }
 
 
 
