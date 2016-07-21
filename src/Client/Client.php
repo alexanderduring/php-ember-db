@@ -3,7 +3,7 @@
 namespace EmberDb\Client;
 
 use EmberDb\Client\LineReader\InjectLineReaderTrait;
-use EmberDb\Client\Parser\Parser;
+use EmberDb\Client\Parser\InjectParserTrait;
 
 /**
  * The main responsibility of the class Client is to continuously read
@@ -15,19 +15,7 @@ class Client
 {
     use InjectLineReaderTrait;
     use InjectOptionsTrait;
-
-    /** @var \EmberDb\Client\Parser\Parser */
-    private $parser;
-
-
-
-    /**
-     * @param \EmberDb\Client\Parser\Parser $parser
-     */
-    public function injectParser(Parser $parser)
-    {
-        $this->parser = $parser;
-    }
+    use InjectParserTrait;
 
 
 
