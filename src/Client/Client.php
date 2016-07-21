@@ -2,7 +2,7 @@
 
 namespace EmberDb\Client;
 
-use EmberDb\Client\LineReader\LineReaderInterface;
+use EmberDb\Client\LineReader\InjectLineReaderTrait;
 use EmberDb\Client\Parser\Parser;
 
 /**
@@ -13,13 +13,11 @@ use EmberDb\Client\Parser\Parser;
  */
 class Client
 {
+    use InjectLineReaderTrait;
     use InjectOptionsTrait;
 
     /** @var \EmberDb\Client\Parser\Parser */
     private $parser;
-
-    /** @var \EmberDb\Client\LineReader\LineReaderInterface */
-    private $lineReader;
 
 
 
@@ -29,16 +27,6 @@ class Client
     public function injectParser(Parser $parser)
     {
         $this->parser = $parser;
-    }
-
-
-
-    /**
-     * @param \EmberDb\Client\LineReader\LineReaderInterface $lineReader
-     */
-    public function injectLineReader(LineReaderInterface $lineReader)
-    {
-        $this->lineReader = $lineReader;
     }
 
 
