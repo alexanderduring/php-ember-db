@@ -1,9 +1,8 @@
 <?php
 
-namespace EmberDb;
+namespace EmberDb\Client;
 
-use EmberDb\Client\Client;
-use EmberDb\Client\Options;
+use EmberDb\DocumentManager;
 
 class ServiceLocator
 {
@@ -57,6 +56,7 @@ class ServiceLocator
     }
 
 
+
     /**
      * @return \EmberDb\Client\Client
      */
@@ -64,11 +64,16 @@ class ServiceLocator
     {
         $client = new Client();
 
+        // Inject this service locator
+        $client->injectServiceLocator($this);
+
+        // Inject options
         $options = $this->getOptions();
         $client->injectOptions($options);
 
         return $client;
     }
+
 
 
     /**

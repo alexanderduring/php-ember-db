@@ -1,9 +1,10 @@
 <?php
 
+use EmberDb\Client\Client;
 use EmberDb\Client\LineReader\LineReader;
 use EmberDb\Client\LineReader\LineReaderFallback;
 use EmberDb\Client\Parser\Parser;
-use EmberDb\ServiceLocator;
+use EmberDb\Client\ServiceLocator;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -28,7 +29,7 @@ if (!function_exists('readline')) {
     $lineReader = new LineReader('$ ');
 }
 
-$client = $serviceLocator->getClient();
+$client = Client::create();
 $client->injectParser($parser);
 $client->injectLineReader($lineReader);
 

@@ -16,6 +16,24 @@ class Client
     use InjectLineReaderTrait;
     use InjectOptionsTrait;
     use InjectParserTrait;
+    use InjectServiceLocatorTrait;
+
+
+
+    public static function create()
+    {
+        $serviceLocator = new ServiceLocator();
+        $client = $serviceLocator->getClient();
+
+        return $client;
+    }
+
+
+
+    public function bootstrap()
+    {
+        $workingDirectory = $this->options->workingDirectory;
+    }
 
 
 
