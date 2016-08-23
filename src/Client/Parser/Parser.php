@@ -52,7 +52,7 @@ class Parser
                 break;
             case 'find':
                 $collection = $parameters[0];
-                $filter = count($parameters) == 2 ? json_decode($parameters[1]) : array();
+                $filter = count($parameters) == 2 ? json_decode($parameters[1], true) : array();
                 $documents = $this->documentManager->find($collection, $filter);
                 foreach ($documents as $document) {
                     $output .= $document->toJson()."\n";

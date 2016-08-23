@@ -17,10 +17,7 @@ class Filter
 
     public function matchesEntry(array $entry)
     {
-        $isMatch = true;
-        foreach ($this->filterData as $key => $value) {
-            $isMatch = array_key_exists($key, $entry) && $entry[$key] == $value && $isMatch;
-        }
+        $isMatch = $this->matchesArray($this->filterData, $entry);
 
         return $isMatch;
     }
