@@ -23,7 +23,19 @@ class Expression
     {
         switch ($this->operator) {
             case '$gt':
-                $isMatch = $value > $this->operand;
+                $isMatch = $this->isNumber($value) && $value > $this->operand;
+                break;
+            case '$gte':
+                $isMatch = $this->isNumber($value) && $value >= $this->operand;
+                break;
+            case '$lt':
+                $isMatch = $this->isNumber($value) && $value < $this->operand;
+                break;
+            case '$lte':
+                $isMatch = $this->isNumber($value) && $value <= $this->operand;
+                break;
+            case '$ne':
+                $isMatch = $value !== $this->operand;
                 break;
         }
 
@@ -34,8 +46,29 @@ class Expression
 
     public function isValid()
     {
-        $isValid = in_array($this->operator, array('$gt', '$lt'));
+        switch ($this->operator) {
+            case '$gt':
+            case '$gte':
+            case '$lt':
+            case '$lte':
+                $isValid = $this->isNumber($this->operand);
+                break;
+            case '$ne':
+                $isValid = true;
+                break;
+            default:
+                $isValid = false;
+        }
 
         return $isValid;
+    }
+
+
+
+    private function isNumber($variable)
+    {
+        $isNumber = is_int($variable) || is_float($variable);
+
+        return $isNumber;
     }
 }
