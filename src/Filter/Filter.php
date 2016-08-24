@@ -1,6 +1,6 @@
 <?php
 
-namespace EmberDb;
+namespace EmberDb\Filter;
 
 class Filter
 {
@@ -55,8 +55,14 @@ class Filter
             $isMatch = $this->matchesArray($filterValue, $entryValue);
         }
 
+        // If both aren't ...
         if (!is_array($filterValue) && !is_array($entryValue)) {
             $isMatch = $filterValue === $entryValue;
+        }
+
+        // If filter is an expression and entry value is no array ...
+        if ($this->isExpression($filterValue) && !is_array($entryValue)) {
+            $isMatch = $this->matchesExpression($filterValue, $entryValue);
         }
 
         return $isMatch;
@@ -64,15 +70,21 @@ class Filter
 
 
 
-    private function isOperator($value)
+    private function matchesExpression($expressionArray, $entryValue)
     {
-        if (is_array($value) && count($value) == 1) {
-            $key = array_keys($value)[0];
-            $isOperator = in_array($key, array('$gt', '$lt'));
-        } else {
-            $isOperator = false;
-        }
+        $expression = new Expression($expressionArray);
+        $isMatch = $expression->matches($entryValue);
 
-        return $isOperator;
+        return $isMatch;
+    }
+
+
+
+    private function isExpression($value)
+    {
+        $expression = new Expression($value);
+        $isExpression = $expression->isValid();
+
+        return $isExpression;
     }
 }

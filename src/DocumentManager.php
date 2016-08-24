@@ -2,6 +2,8 @@
 
 namespace EmberDb;
 
+use EmberDb\Filter\Filter;
+
 /**
  * The class DocumentManager is responsible for acting as an interface to the database.
  */
