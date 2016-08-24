@@ -27,26 +27,52 @@ class Filter
     private function matchesArray($filterArray, $entryArray)
     {
         $isMatch = true;
-        foreach ($filterArray as $key => $value) {
-            if (array_key_exists($key, $entryArray)) {
-                $entryValue = $entryArray[$key];
+        foreach ($filterArray as $filterKey => $filterValue) {
+
+            // Check if the filter key exists and fetch corresponding value from entry
+            if (array_key_exists($filterKey, $entryArray)) {
+                $entryValue = $entryArray[$filterKey];
             } else {
                 $isMatch = false;
                 break;
             }
 
-            if (is_array($value) && !is_array($entryValue) || !is_array($value) && is_array($entryValue)) {
-                $isMatch = false;
-                break;
-            }
-
-            if (is_array($value) && is_array($entryValue)) {
-                $isMatch = $isMatch && $this->matchesArray($value, $entryValue);
-            } else {
-                $isMatch = $isMatch && $value === $entryValue;
-            }
+            // Check if the values match
+            $isMatch &= $this->matchesValue($filterValue, $entryValue);
         }
 
         return $isMatch;
+    }
+
+
+
+    private function matchesValue($filterValue, $entryValue)
+    {
+        $isMatch = false;
+
+        // If both are an array ...
+        if (is_array($filterValue) && is_array($entryValue)) {
+            $isMatch = $this->matchesArray($filterValue, $entryValue);
+        }
+
+        if (!is_array($filterValue) && !is_array($entryValue)) {
+            $isMatch = $filterValue === $entryValue;
+        }
+
+        return $isMatch;
+    }
+
+
+
+    private function isOperator($value)
+    {
+        if (is_array($value) && count($value) == 1) {
+            $key = array_keys($value)[0];
+            $isOperator = in_array($key, array('$gt', '$lt'));
+        } else {
+            $isOperator = false;
+        }
+
+        return $isOperator;
     }
 }
