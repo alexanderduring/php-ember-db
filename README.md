@@ -1,7 +1,18 @@
-# php-ember-db
+# Ember DB
 
 EmberDb is planned to be a light, embeddable implementation of a document based database
-for php projects. To try it out just clone the repository and in the project home type
+for php projects. 
+
+## Overview
+
+The project consists of two parts:
+
+- the library that you need to embed in your application
+- a command line client to directly access your database.
+
+## Demo
+
+To try it out just clone the repository and in the project home type
 
 ```
 $ php demo/index.php
@@ -11,7 +22,78 @@ You will see some example output of creating a collection, inserting documents u
 There is also a command line client which you can start with
 
 ```
-$ php demo/client.php
+$ php demo/client.php --directory=./demo/data
+```
+
+## Features
+
+### Setting up the database
+
+To set up the database, you need to tell the documentManager where he should store and search for database files (*.edb).
+
+```php
+$documentManager = new DocumentManager();
+$documentManager->setDatabasePath(__DIR__.'/data');
+```
+
+### Create a collection
+
+To create a collection just insert a document into it.
+
+### Remove a collection
+
+To remove the entire 'cars' collection:
+
+```php
+$documentManager->remove('cars');
+```
+
+### Insert documents
+
+To insert a document into a collection:
+
+```php
+// Set up database
+$documentManager = new DocumentManager();
+$documentManager->setDatabasePath(__DIR__.'/data');
+
+$car = array(
+    'license-number' => 'HH-DS 1243',
+    'manufacturer' => 'BMW',
+    'model' => '325i'
+);
+
+// Add an entry to the collection
+$documentManager->insert('cars', $car);
+```
+
+To insert multiple documents into a collection:
+
+```php
+$cars = array(
+    array('manufacturer' => 'BMW', 'model' => '325i', 'color' => 'blue'),
+    array('manufacturer' => 'VW', 'model' => 'Golf', 'color' => 'yellow'),
+    array('manufacturer' => 'Fiat', 'model' => 'Punto', 'color' => 'blue')
+);
+$documentManager->insertMany('cars', $cars);
+```
+### Remove documents
+
+-not implemented yet-
+
+### Query documents
+
+To select all documents in the collection 'cars':
+
+```php
+$documents = $documentManager->find('cars');
+```
+
+To select all cars, that have a blue color:
+
+```php
+$filter = array('color' => 'blue');
+$documents = $documentManager->find('cars', $filter);
 ```
 
 ## Implemetation Brainstorming
