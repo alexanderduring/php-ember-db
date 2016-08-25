@@ -1,4 +1,7 @@
+[![Build Status](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/badges/build.png?b=master)](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/build-status/master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/?branch=master)
+
 # Ember DB
+
 
 EmberDb is planned to be a light, embeddable implementation of a document based database
 for php projects. 
