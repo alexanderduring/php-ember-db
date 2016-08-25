@@ -113,7 +113,7 @@ These operators are currently available:
 
 #### Examples
 
-Query for all cars with more the 36 kw engine power:
+Query for all cars with more than 36 kw engine power:
 
 ```php
 $filter = array('engine' => array(
