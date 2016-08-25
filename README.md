@@ -99,6 +99,37 @@ $filter = array('color' => 'blue');
 $documents = $documentManager->find('cars', $filter);
 ```
 
+### Filters
+
+The implementatino of filters in Ember Db is inspired by the query operators used in [BSON/MongoDB](https://docs.mongodb.com/).
+
+These operators are currently available:
+
+- $gt
+- $gte
+- $lt
+- $lte
+- $ne
+
+#### Examples
+
+Query for all cars with more the 36 kw engine power:
+
+```php
+$filter = array('engine' => array(
+    'powerInKw' => array('$gt' => 36)
+));
+$documents = $documentManager->find('cars', $filter);
+```
+
+Query for all cars with a manufacturer other than Fiat:
+
+```php
+$filter = array('manufacturer' => array('$ne' => 'Fiat'));
+$documents = $documentManager->find('cars', $filter);
+```
+
+
 ## Implemetation Brainstorming
 
 There will probably be a "Manager" class as the unique access point to the database.
