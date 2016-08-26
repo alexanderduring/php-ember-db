@@ -101,15 +101,16 @@ $documents = $documentManager->find('cars', $filter);
 
 ### Filters
 
-The implementatino of filters in Ember Db is inspired by the query operators used in [BSON/MongoDB](https://docs.mongodb.com/).
+The implementation of filters in Ember Db is inspired by the query operators used in [BSON/MongoDB](https://docs.mongodb.com/).
 
-These operators are currently available:
+These filter operators are currently available:
 
-- $gt
-- $gte
-- $lt
-- $lte
-- $ne
+- $gt (greater than)
+- $gte (greater than or equal)
+- $lt (lower than)
+- $lte (lower than or equal)
+- $ne (not equal)
+
 
 #### Examples
 
