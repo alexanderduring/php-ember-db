@@ -1,7 +1,7 @@
 {
     "name": "EmberDb",
     "description": "",
-    "license": "MIT",
+    "license": "GNU General Public License v3.0",
     "keywords": [
     ],
     "homepage": "https://github.com/alexanderduring/php-ember-db",
