@@ -1,10 +1,16 @@
 {
-    "name": "EmberDb",
-    "description": "",
+    "name": "alexanderduring/ember-db",
+    "type": "library",
+    "description": "An embeddable document based database for php.",
+    "keywords": ["php", "embedded database", "document based database"],
     "license": "GNU General Public License v3.0",
-    "keywords": [
-    ],
     "homepage": "https://github.com/alexanderduring/php-ember-db",
+    "authors": [
+        {
+            "name": "Alexander During",
+            "role": "Developer"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "EmberDb\\": "src/"
@@ -12,6 +18,6 @@
     },
     "require": {
         "php": ">=5.4.45",
-        "phpunit/phpunit": "4.8.26"
+        "phpunit/phpunit": "4.8.*"
     }
 }
