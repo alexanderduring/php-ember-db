@@ -11,6 +11,7 @@
             "role": "Developer"
         }
     ],
+    "bin": ["bin/ember-db"],
     "autoload": {
         "psr-4": {
             "EmberDb\\": "src/"
