@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 /**
  * Ember Db - An embeddable document database for php.
