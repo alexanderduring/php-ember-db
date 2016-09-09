@@ -28,6 +28,10 @@ class Document
     private $data;
 
 
+
+    /**
+     * @param array $data
+     */
     public function __construct($data = array())
     {
         $this->data = $data;
@@ -35,8 +39,104 @@ class Document
 
 
 
+    /**
+     * @param string $path 'comma.separated.path.to.value'
+     * @return boolean
+     */
+    public function has($path)
+    {
+        $exists = true;
+
+        $subtree = $this->data;
+        $segments = $this->getPathSegments($path);
+
+        foreach ($segments as $key) {
+            if (!array_key_exists($key, $subtree)) {
+                $exists = false;
+            } else {
+                $subtree = $subtree[$key];
+            }
+        }
+
+        return $exists;
+    }
+
+
+
+    /**
+     * @param string $path 'comma.separated.path.to.value'
+     * @return array|mixed
+     */
+    public function get($path)
+    {
+        $subtree = $this->data;
+        $segments = $this->getPathSegments($path);
+
+        foreach ($segments as $key) {
+            $subtree = $subtree[$key];
+        }
+
+        return $subtree;
+    }
+
+
+
+    /**
+     * This method allows you to set a value in the document by using this syntax:
+     *
+     * set('path.to.level', 'myValue')
+     *
+     * ... does nothing else than ...
+     *
+     * document[path][to][level] = 'myValue'
+     *
+     * Because the path is translated into an array structure in interations
+     * we need to store the reference to each intermediate array field
+     * for usage in the next iteration.
+     *
+     * @param string $path 'comma.separated.path.to.value'
+     * @param mixed $value The value to store
+     * @return boolean
+     */
+    public function set($path, $value)
+    {
+        $subtree = &$this->data;
+        $segments = $this->getPathSegments($path);
+        $lastKey = array_pop($segments);
+
+        foreach ($segments as $key) {
+            if (array_key_exists($key, $subtree)) {
+                if (!is_array($subtree[$key])) {
+                    return false;
+                }
+                $subtree = &$subtree[$key];
+            } else {
+                $subtree[$key] = array();
+                $subtree = &$subtree[$key];
+            }
+        }
+
+        $subtree[$lastKey] = $value;
+    }
+
+
+
     public function toJson()
     {
         return json_encode($this->data);
+    }
+
+
+
+    /**
+     * @param string $path
+     * @return array
+     */
+    private function getPathSegments($path)
+    {
+        trim($path, '.');
+        $segments = explode('.', $path);
+
+        return $segments;
     }
 }

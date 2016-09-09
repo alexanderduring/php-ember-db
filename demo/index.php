@@ -86,8 +86,13 @@ foreach ($documents as $document) {
 // Query the collection and output the result
 $documents = $documentManager->find('cars', array('color' => 'blue'));
 echo "\nAll blue cars in the collection:\n";
+
 foreach ($documents as $document) {
     echo $document->toJson()."\n";
+}
+
+foreach ($documents as $document) {
+    echo $document->get('manufacturer')." with ".$document->get('engine.powerInKw')." kw.\n";
 }
 
 echo "\n";
