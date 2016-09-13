@@ -58,6 +58,8 @@ class Expression
             case '$ne':
                 $isMatch = $value !== $this->operand;
                 break;
+            default:
+                $isMatch = false;
         }
 
         return $isMatch;
