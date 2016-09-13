@@ -25,7 +25,7 @@ You will see some example output of creating a collection, inserting documents u
 There is also a command line client which you can start with
 
 ```
-$ php demo/client.php --directory=./demo/data
+$ bin/ember-db --directory=demo/data
 ```
 
 ## Features
