@@ -103,9 +103,8 @@ class Filter
 
     private function isExpression($value)
     {
-        $expression = new Expression($value);
-        $isExpression = $expression->isValid();
+        $expressionManager = new ExpressionManager();
 
-        return $isExpression;
+        return $expressionManager->isExpression($value);
     }
 }
