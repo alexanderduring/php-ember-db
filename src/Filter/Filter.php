@@ -82,7 +82,7 @@ class Filter
         }
 
         // If filter is an expression and entry value is no array ...
-        if ($this->isExpression($filterValue) && !is_array($entryValue)) {
+        if ($this->isExpression($filterValue)) {
             $isMatch = $this->matchesExpression($filterValue, $entryValue);
         }
 
