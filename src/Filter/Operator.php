@@ -23,7 +23,7 @@
 
 namespace EmberDb\Filter;
 
-class Expression
+class Operator
 {
     private $operator;
     private $operand;

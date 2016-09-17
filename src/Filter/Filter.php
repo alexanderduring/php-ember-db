@@ -81,30 +81,13 @@ class Filter
             $isMatch = $filterValue === $entryValue;
         }
 
-        // If filter is an expression and entry value is no array ...
-        if ($this->isExpression($filterValue)) {
-            $isMatch = $this->matchesExpression($filterValue, $entryValue);
+        // If filter is an operator ...
+        $operatorManager = new OperatorManager();
+        if ($operatorManager->isOperator($filterValue)) {
+            $operator = $operatorManager->createOperator($filterValue);
+            $isMatch = $operator->matches($entryValue);
         }
 
         return $isMatch;
-    }
-
-
-
-    private function matchesExpression($expressionArray, $entryValue)
-    {
-        $expression = new Expression($expressionArray);
-        $isMatch = $expression->matches($entryValue);
-
-        return $isMatch;
-    }
-
-
-
-    private function isExpression($value)
-    {
-        $expressionManager = new ExpressionManager();
-
-        return $expressionManager->isExpression($value);
     }
 }
