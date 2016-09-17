@@ -21,43 +21,24 @@
  * @license   http://www.gnu.org/licenses GNU General Public License v3.0
  */
 
-namespace EmberDb\Filter;
+namespace EmberDb\Filter\Operator;
 
-class Operator
+class GreaterThan extends AbstractOperator
 {
-    private $operator;
     private $operand;
 
 
 
-    public function __construct($expression)
+    public function __construct($operand)
     {
-        if (is_array($expression) && count($expression) == 1) {
-            $this->operator = array_keys($expression)[0];
-            $this->operand = $expression[$this->operator];
-        }
+        $this->operand = $operand;
     }
 
 
 
     public function matches($value)
     {
-        switch ($this->operator) {
-            case '$gte':
-                $isMatch = $this->isNumber($value) && $value >= $this->operand;
-                break;
-            case '$lt':
-                $isMatch = $this->isNumber($value) && $value < $this->operand;
-                break;
-            case '$lte':
-                $isMatch = $this->isNumber($value) && $value <= $this->operand;
-                break;
-            case '$ne':
-                $isMatch = $value !== $this->operand;
-                break;
-            default:
-                $isMatch = false;
-        }
+        $isMatch = $this->isNumber($value) && $value > $this->operand;
 
         return $isMatch;
     }
@@ -66,19 +47,7 @@ class Operator
 
     public function isValid()
     {
-        switch ($this->operator) {
-            case '$gt':
-            case '$gte':
-            case '$lt':
-            case '$lte':
-                $isValid = $this->isNumber($this->operand);
-                break;
-            case '$ne':
-                $isValid = true;
-                break;
-            default:
-                $isValid = false;
-        }
+        $isValid = $this->isNumber($this->operand);
 
         return $isValid;
     }

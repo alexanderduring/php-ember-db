@@ -23,11 +23,13 @@
 
 namespace EmberDb\Filter;
 
+use EmberDb\Filter\Operator\GreaterThan;
+
 class OperatorManager
 {
-    public function isOperator($filterValue)
+    public function isOperator($operatorArray)
     {
-        $operator = $this->getOperator($filterValue);
+        $operator = $this->getOperator($operatorArray);
         $isOperator = in_array($operator, array('$gt', '$gte', '$lt', '$lte', '$ne'));
 
         return $isOperator;
@@ -37,10 +39,10 @@ class OperatorManager
 
     public function createOperator($operatorArray)
     {
-//        switch ($this->operator) {
-//            case '$gt':
-//                $isMatch = $this->isNumber($value) && $value > $this->operand;
-//                break;
+        switch ($this->getOperator($operatorArray)) {
+            case '$gt':
+                $operator = new GreaterThan($this->getOperand($operatorArray));
+                break;
 //            case '$gte':
 //                $isMatch = $this->isNumber($value) && $value >= $this->operand;
 //                break;
@@ -53,12 +55,12 @@ class OperatorManager
 //            case '$ne':
 //                $isMatch = $value !== $this->operand;
 //                break;
-//            default:
-//                $isMatch = false;
-//
-//        }
+            default:
+                $operator = new Operator($operatorArray);
 
-        $operator = new Operator($operatorArray);
+//
+        }
+
 
         return $operator;
     }
@@ -69,7 +71,6 @@ class OperatorManager
     {
         if (is_array($operatorArray) && count($operatorArray) == 1) {
             $operator = array_keys($operatorArray)[0];
-            $operand = $operatorArray[$operator];
         } else {
             $operator = null;
         }
@@ -82,7 +83,7 @@ class OperatorManager
     private function getOperand($operatorArray)
     {
         if (is_array($operatorArray) && count($operatorArray) == 1) {
-            $operand = $operatorArray[$this->getOperator()];
+            $operand = $operatorArray[$this->getOperator($operatorArray)];
         }
 
         return $operand;
