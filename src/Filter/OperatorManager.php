@@ -24,6 +24,10 @@
 namespace EmberDb\Filter;
 
 use EmberDb\Filter\Operator\GreaterThan;
+use EmberDb\Filter\Operator\GreaterThanEqual;
+use EmberDb\Filter\Operator\LowerThan;
+use EmberDb\Filter\Operator\LowerThanEqual;
+use EmberDb\Filter\Operator\NotEqual;
 
 class OperatorManager
 {
@@ -43,24 +47,21 @@ class OperatorManager
             case '$gt':
                 $operator = new GreaterThan($this->getOperand($operatorArray));
                 break;
-//            case '$gte':
-//                $isMatch = $this->isNumber($value) && $value >= $this->operand;
-//                break;
-//            case '$lt':
-//                $isMatch = $this->isNumber($value) && $value < $this->operand;
-//                break;
-//            case '$lte':
-//                $isMatch = $this->isNumber($value) && $value <= $this->operand;
-//                break;
-//            case '$ne':
-//                $isMatch = $value !== $this->operand;
-//                break;
+            case '$gte':
+                $operator = new GreaterThanEqual($this->getOperand($operatorArray));
+                break;
+            case '$lt':
+                $operator = new LowerThan($this->getOperand($operatorArray));
+                break;
+            case '$lte':
+                $operator = new LowerThanEqual($this->getOperand($operatorArray));
+                break;
+            case '$ne':
+                $operator = new NotEqual($this->getOperand($operatorArray));
+                break;
             default:
-                $operator = new Operator($operatorArray);
-
-//
+                $operator = null;
         }
-
 
         return $operator;
     }

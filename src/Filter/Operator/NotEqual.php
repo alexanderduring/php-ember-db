@@ -23,29 +23,21 @@
 
 namespace EmberDb\Filter\Operator;
 
-abstract class AbstractOperator
+class NotEqual extends AbstractOperator
 {
-    protected $operand;
-
-
-
-    public function __construct($operand)
+    public function matches($value)
     {
-        $this->operand = $operand;
+        $isMatch = $value !== $this->operand;
+
+        return $isMatch;
     }
 
 
 
-    abstract public function matches($value);
-
-    abstract public function isValid();
-
-
-
-    protected function isNumber($variable)
+    public function isValid()
     {
-        $isNumber = is_int($variable) || is_float($variable);
+        $isValid = true;
 
-        return $isNumber;
+        return $isValid;
     }
 }

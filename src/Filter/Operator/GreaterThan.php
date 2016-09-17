@@ -25,17 +25,6 @@ namespace EmberDb\Filter\Operator;
 
 class GreaterThan extends AbstractOperator
 {
-    private $operand;
-
-
-
-    public function __construct($operand)
-    {
-        $this->operand = $operand;
-    }
-
-
-
     public function matches($value)
     {
         $isMatch = $this->isNumber($value) && $value > $this->operand;
@@ -50,14 +39,5 @@ class GreaterThan extends AbstractOperator
         $isValid = $this->isNumber($this->operand);
 
         return $isValid;
-    }
-
-
-
-    private function isNumber($variable)
-    {
-        $isNumber = is_int($variable) || is_float($variable);
-
-        return $isNumber;
     }
 }
