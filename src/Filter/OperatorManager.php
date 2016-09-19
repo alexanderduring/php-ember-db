@@ -23,6 +23,7 @@
 
 namespace EmberDb\Filter;
 
+use EmberDb\Filter\Operator\ElementMatch;
 use EmberDb\Filter\Operator\GreaterThan;
 use EmberDb\Filter\Operator\GreaterThanEqual;
 use EmberDb\Filter\Operator\LowerThan;
@@ -34,7 +35,7 @@ class OperatorManager
     public function isOperator($operatorArray)
     {
         $operator = $this->getOperator($operatorArray);
-        $isOperator = in_array($operator, array('$gt', '$gte', '$lt', '$lte', '$ne'));
+        $isOperator = in_array($operator, array('$gt', '$gte', '$lt', '$lte', '$ne', '$elementMatch'));
 
         return $isOperator;
     }
@@ -58,6 +59,9 @@ class OperatorManager
                 break;
             case '$ne':
                 $operator = new NotEqual($this->getOperand($operatorArray));
+                break;
+            case '$elementMatch':
+                $operator = new ElementMatch($this->getOperand($operatorArray));
                 break;
             default:
                 $operator = null;

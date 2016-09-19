@@ -41,7 +41,8 @@ $someCars = array(
         'engine' => array(
             'powerInKw' => 40,
             'displacementInLiters' => 1.1
-        )
+        ),
+        'editions' => array('Active', 'Dynamic', 'Emotion', 'Sport', 'Cabriolet')
     ),
     array(
         'manufacturer' => 'Fiat',
@@ -62,7 +63,8 @@ $someCars = array(
         'engine' => array(
             'powerInKw' => 37,
             'displacementInLiters' => 1.1
-        )
+        ),
+        'editions' => array('City', 'Country', 'Gti', 'Cabriolet')
     )
 );
 
