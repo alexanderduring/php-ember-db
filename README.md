@@ -13,6 +13,14 @@ The project consists of two parts:
 - the library that you need to embed in your application
 - a command line client to directly access your database.
 
+## Usage
+
+Via composer:
+
+```
+$ composer require alexanderduring/ember-db
+```
+
 ## Demo
 
 To try it out just clone the repository and in the project home type
