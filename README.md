@@ -110,7 +110,7 @@ These filter operators are currently available:
 - $lt (lower than)
 - $lte (lower than or equal)
 - $ne (not equal)
-
+- $elementMatch (matches at least one element in an array)
 
 #### Examples
 
