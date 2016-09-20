@@ -1,5 +1,6 @@
-[![Build Status](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/badges/build.png?b=master)](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/build-status/master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/?branch=master)
-
+[![License](https://poser.pugx.org/alexanderduring/ember-db/license)](https://packagist.org/packages/alexanderduring/ember-db)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/badges/build.png?b=master)](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/build-status/master) 
 # Ember DB
 
 
