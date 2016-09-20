@@ -1,7 +1,12 @@
 [![License](https://poser.pugx.org/alexanderduring/ember-db/license)](https://packagist.org/packages/alexanderduring/ember-db)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/badges/build.png?b=master)](https://scrutinizer-ci.com/g/alexanderduring/php-ember-db/build-status/master) 
+[![Total Downloads](https://poser.pugx.org/alexanderduring/ember-db/downloads)](https://packagist.org/packages/alexanderduring/ember-db)
+[![Latest Stable Version](https://poser.pugx.org/alexanderduring/ember-db/v/stable)](https://packagist.org/packages/alexanderduring/ember-db)
+[![Latest Unstable Version](https://poser.pugx.org/alexanderduring/ember-db/v/unstable)](https://packagist.org/packages/alexanderduring/ember-db)
+
 # Ember DB
+
 
 
 EmberDb is planned to be a light, embeddable implementation of a document based database
