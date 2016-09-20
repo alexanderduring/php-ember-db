@@ -25,6 +25,9 @@ namespace EmberDb\Filter;
 
 class Filter2
 {
+    /** @var OperatorManager2 */
+    private $operatorManager;
+
     private $operatorHierarchy = array();
 
 
@@ -82,9 +85,8 @@ class Filter2
         }
 
         // If filter is an operator ...
-        $operatorManager = new OperatorManager();
-        if ($operatorManager->isOperator($filterValue)) {
-            $operator = $operatorManager->createOperator($filterValue);
+        if ($this->getOperatorManager()->isOperator($filterValue)) {
+            $operator = $this->getOperatorManager()->buildOperator($filterValue);
             $isMatch = $operator->matches($entryValue);
         }
 
@@ -107,11 +109,21 @@ class Filter2
 
     private function buildOperator($operatorArray)
     {
-        $operatorManager = new OperatorManager();
-        if ($operatorManager->isOperator($operatorArray)) {
-            $operator = $operatorManager->createOperator($operatorArray);
+        if ($this->getOperatorManager()->isOperator($operatorArray)) {
+            $operator = $this->getOperatorManager()->buildOperator($operatorArray);
         }
 
         return $operator;
+    }
+
+
+
+    private function getOperatorManager()
+    {
+        if (!$this->operatorManager instanceof OperatorManager2) {
+            $this->operatorManager = new OperatorManager2();
+        }
+
+        return $this->operatorManager;
     }
 }
