@@ -46,20 +46,18 @@ Operators can contain objects and/or operators:
 ```
 {"foo":[12,23,34,45],"bar":"test"}
 {"foo":{"$elementMatch":{"$gt":12}}}
-{"bar":"test"}
-
-{"subject":"Essen","text":"Was wollen wir essen? ILD, Sonja"}
-{"subject":"Essen","text":"{"$enthält":"Sonja"}"}
 ```
-Es gibt operatoren, die nur mit Zahlen oder strings arbeiten können 
-und solche die auch auf operatoren arbeiten können.
 
-#### Operatoren 1. Klasse
+## Theory
+There are operators (1st class operators), that take only numbers or strings as first operand 
+and there are those operators (2nd class operators) which can work on numbers or strings and on other operators.
+
+### 1st Class Operators
   * $gt
   * $lt
   * $eq
   * $ne
   
-#### Operatoren 2. Klasse
+### 2nd Class Operators
   * $elementMatch
   
