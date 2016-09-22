@@ -89,6 +89,8 @@ class OperatorManager2
     {
         if (is_array($operatorArray) && count($operatorArray) == 1) {
             $operand = $operatorArray[$this->getOperator($operatorArray)];
+        } else {
+            $operand = null;
         }
 
         return $operand;
