@@ -38,14 +38,14 @@ class Filter
 
     public function matchesEntry(array $entry)
     {
-        $isMatch = $this->matchesArray($this->filterData, $entry);
+        $isMatch = $this->matchesDocument($this->filterData, $entry);
 
         return $isMatch;
     }
 
 
 
-    private function matchesArray($filterArray, $entryArray)
+    private function matchesDocument($filterArray, $entryArray)
     {
         $isMatch = true;
         foreach ($filterArray as $filterKey => $filterValue) {
@@ -70,24 +70,62 @@ class Filter
     private function matchesValue($filterValue, $entryValue)
     {
         $isMatch = false;
+        print_r($filterValue);
+        print_r($entryValue);
 
-        // If both are an array ...
-        if (is_array($filterValue) && is_array($entryValue)) {
-            $isMatch = $this->matchesArray($filterValue, $entryValue);
+
+        // If both are a scalar ...
+        if ($this->isScalar($filterValue) && $this->isScalar($entryValue)) {
+            echo "Is scalar\n";
+            $isMatch = $filterValue === $entryValue;
+        }
+        // If both are a list ...
+        if ($this->isList($filterValue) && $this->isList($entryValue)) {
+            echo "Is list\n";
+            $isMatch = $filterValue === $entryValue;
         }
 
-        // If both aren't ...
-        if (!is_array($filterValue) && !is_array($entryValue)) {
-            $isMatch = $filterValue === $entryValue;
+        // If both are a document ...
+        if ($this->isDocument($filterValue) && $this->isDocument($entryValue)) {
+            echo "Is document\n";
+            $isMatch = $this->matchesDocument($filterValue, $entryValue);
         }
 
         // If filter is an operator ...
         $operatorManager = new OperatorManager();
         if ($operatorManager->isOperator($filterValue)) {
+            echo "Is operator\n";
             $operator = $operatorManager->buildOperator($filterValue);
             $isMatch = $operator->matches($entryValue);
         }
 
         return $isMatch;
+    }
+
+
+
+    private function isList($array)
+    {
+        $isList = array() === $array || array_keys($array) === range(0, count($array) - 1);
+
+        return $isList;
+    }
+
+
+
+    private function isDocument($array)
+    {
+        $isDocument = is_array($array) && !$this->isList($array);
+
+        return $isDocument;
+    }
+
+
+
+    private function isScalar($scalar)
+    {
+        $isScalar = !is_array($scalar);
+
+        return $isScalar;
     }
 }

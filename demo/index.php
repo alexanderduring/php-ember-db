@@ -28,7 +28,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $car = array(
     'license-number' => 'HH-DS 1243',
     'manufacturer' => 'BMW',
-    'model' => '325i'
+    'model' => '325i',
+    'editions' => array('Standard')
 );
 
 $someCars = array(
