@@ -84,7 +84,7 @@ class Filter
         // If filter is an operator ...
         $operatorManager = new OperatorManager();
         if ($operatorManager->isOperator($filterValue)) {
-            $operator = $operatorManager->createOperator($filterValue);
+            $operator = $operatorManager->buildOperator($filterValue);
             $isMatch = $operator->matches($entryValue);
         }
 

@@ -1,5 +1,20 @@
 # Notes
 
+## The elemMatch Operator
+
+The elemMatch operator takes a list of queries as argument and matches them all against the 
+elements of an array. If at least one element matches all of the queries the elemMatch operator
+matches this field.
+
+Syntax: 
+
+```
+$ find documents {"list":{"$elemMatch":{"$lte":100,"$ne":55}}}
+```
+
+It is matching queries on elements, like the Filter class is matching a query on documents. 
+So maybe we can unify the implementation here?
+
 ## Building an operator hierarchy
 
 ### First steps

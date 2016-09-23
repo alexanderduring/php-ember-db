@@ -23,7 +23,21 @@
 
 namespace EmberDb\Filter\Operator;
 
-class ElementMatch extends AbstractOperator
+/**
+ * The operator ElemMatch matches documents that contain an array field with at least one element
+ * that matches all the specified filter criteria.
+ *
+ * There are three types of possible operand values:
+ *
+ * 1. A single operator, e.g. {"list":{"$elemMatch":{"$lte":100}}}
+ *
+ * 2. An array of operators, e.g. {"list":{"$elemMatch":{"$lte":100,"$ne":55}}}
+ *    Matches all documents that have at least on element in the field "list"
+ *    that is a number below or equal to 100 and is not equal to 55.
+ *
+ * 2.
+ */
+class ElemMatch extends AbstractOperator
 {
     public function matches($value)
     {
