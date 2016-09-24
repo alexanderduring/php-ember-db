@@ -70,9 +70,6 @@ class Filter
     private function matchesValue($filterValue, $entryValue)
     {
         $isMatch = false;
-        print_r($filterValue);
-        print_r($entryValue);
-
 
         // If both are a scalar ...
         if ($this->isScalar($filterValue) && $this->isScalar($entryValue)) {
