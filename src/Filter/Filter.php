@@ -103,7 +103,7 @@ class Filter
 
     private function isList($array)
     {
-        $isList = array() === $array || array_keys($array) === range(0, count($array) - 1);
+        $isList = is_array($array) && (array() === $array || array_keys($array) === range(0, count($array) - 1));
 
         return $isList;
     }
