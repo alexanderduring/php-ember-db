@@ -25,6 +25,7 @@ namespace EmberDb\Client;
 
 use EmberDb\Client\LineReader\InjectLineReaderTrait;
 use EmberDb\Client\Parser\InjectParserTrait;
+use EmberDb\Logger;
 
 /**
  * The main responsibility of the class Client is to continuously read
@@ -72,7 +73,9 @@ class Client
                 $quit = true;
                 $output = "Closing EmberDb command line client.\n\n";
             } else {
+                Logger::log("Starting execution of '" . $inputLine . "'.\n");
                 $output = $this->parser->execute($inputLine);
+                Logger::log("Execution finished.\n\n");
             }
 
             echo $output;

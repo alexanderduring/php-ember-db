@@ -23,6 +23,8 @@
 
 namespace EmberDb\Filter;
 
+use EmberDb\Logger;
+
 class Filter
 {
     private $filterData = array();
@@ -73,25 +75,25 @@ class Filter
 
         // If both are a scalar ...
         if ($this->isScalar($filterValue) && $this->isScalar($entryValue)) {
-            echo "Is scalar\n";
+            Logger::log("query:" . $filterValue . " and entry:" . $entryValue . " are both scalars.\n");
             $isMatch = $filterValue === $entryValue;
         }
         // If both are a list ...
         if ($this->isList($filterValue) && $this->isList($entryValue)) {
-            echo "Is list\n";
+            Logger::log("query:" . json_encode($filterValue) . " and entry:" . json_encode($entryValue) . " are both lists.\n");
             $isMatch = $filterValue === $entryValue;
         }
 
         // If both are a document ...
         if ($this->isDocument($filterValue) && $this->isDocument($entryValue)) {
-            echo "Is document\n";
+            Logger::log($filterValue . " and " . $entryValue . " are both documents.\n");
             $isMatch = $this->matchesDocument($filterValue, $entryValue);
         }
 
         // If filter is an operator ...
         $operatorManager = new OperatorManager();
         if ($operatorManager->isOperator($filterValue)) {
-            echo "Is operator\n";
+            Logger::log("Is operator\n");
             $operator = $operatorManager->buildOperator($filterValue);
             $isMatch = $operator->matches($entryValue);
         }

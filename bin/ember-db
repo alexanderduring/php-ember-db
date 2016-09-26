@@ -27,12 +27,16 @@ use EmberDb\Client\LineReader\LineReader;
 use EmberDb\Client\LineReader\LineReaderFallback;
 use EmberDb\Client\Parser\Parser;
 use EmberDb\Client\ServiceLocator;
+use EmberDb\Logger;
 
 if (file_exists(__DIR__ . '/../../../autoload.php')) {
     require_once __DIR__ . '/../../../autoload.php';
 } else {
     require_once __DIR__ . '/../vendor/autoload.php';
 }
+
+// Setup logger
+Logger::setup(__DIR__ . '/../log/emberdb-debug.log');
 
 $serviceLocator = new ServiceLocator();
 
