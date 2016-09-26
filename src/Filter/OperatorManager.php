@@ -29,6 +29,7 @@ use EmberDb\Filter\Operator\GreaterThanEqual;
 use EmberDb\Filter\Operator\LowerThan;
 use EmberDb\Filter\Operator\LowerThanEqual;
 use EmberDb\Filter\Operator\NotEqual;
+use EmberDb\Logger;
 
 class OperatorManager
 {
@@ -36,6 +37,9 @@ class OperatorManager
     {
         $operator = $this->getOperator($operatorArray);
         $isOperator = in_array($operator, array('$gt', '$gte', '$lt', '$lte', '$ne', '$elemMatch'));
+        if ($isOperator) {
+            Logger::log('"'.$operator.'" is in '.json_encode(array('$gt', '$gte', '$lt', '$lte', '$ne', '$elemMatch')).', so it is an operator.\n');
+        }
 
         return $isOperator;
     }
@@ -75,6 +79,8 @@ class OperatorManager
     private function getOperator($operatorArray)
     {
         if (is_array($operatorArray) && count($operatorArray) == 1) {
+            // This still has to be fixed: First check, if this array has keys
+            // then access the keys.
             $operator = array_keys($operatorArray)[0];
         } else {
             $operator = null;

@@ -87,16 +87,18 @@ class Filter
         // If both are a document ...
         if ($this->isDocument($filterValue) && $this->isDocument($entryValue)) {
             Logger::log($filterValue . " and " . $entryValue . " are both documents.\n");
-            $isMatch = $this->matchesDocument($filterValue, $entryValue);
+
+            // If filter is an operator ...
+            $operatorManager = new OperatorManager();
+            if ($operatorManager->isOperator($filterValue)) {
+                Logger::log("Is operator\n");
+                $operator = $operatorManager->buildOperator($filterValue);
+                $isMatch = $operator->matches($entryValue);
+            } else {
+                $isMatch = $this->matchesDocument($filterValue, $entryValue);
+            }
         }
 
-        // If filter is an operator ...
-        $operatorManager = new OperatorManager();
-        if ($operatorManager->isOperator($filterValue)) {
-            Logger::log("Is operator\n");
-            $operator = $operatorManager->buildOperator($filterValue);
-            $isMatch = $operator->matches($entryValue);
-        }
 
         return $isMatch;
     }
