@@ -89,9 +89,9 @@ class Filter
             Logger::log($filterValue . " and " . $entryValue . " are both documents.\n");
 
             // If filter is an operator ...
-            $operatorManager = new OperatorManager();
-            if ($operatorManager->isOperator($filterValue)) {
+            if ($this->isOperator($filterValue)) {
                 Logger::log("Is operator\n");
+                $operatorManager = new OperatorManager();
                 $operator = $operatorManager->buildOperator($filterValue);
                 $isMatch = $operator->matches($entryValue);
             } else {
@@ -128,5 +128,19 @@ class Filter
         $isScalar = !is_array($scalar);
 
         return $isScalar;
+    }
+
+
+
+    private function isOperator($array)
+    {
+        if ($this->isDocument($array)) {
+            $firstKey = array_keys($array)[0];
+            $isOperator = strpos($firstKey, '$') === 0;
+        } else {
+            $isOperator = false;
+        }
+
+        return $isOperator;
     }
 }

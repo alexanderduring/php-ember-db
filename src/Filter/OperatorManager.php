@@ -79,8 +79,6 @@ class OperatorManager
     private function getOperator($operatorArray)
     {
         if (is_array($operatorArray) && count($operatorArray) == 1) {
-            // This still has to be fixed: First check, if this array has keys
-            // then access the keys.
             $operator = array_keys($operatorArray)[0];
         } else {
             $operator = null;
