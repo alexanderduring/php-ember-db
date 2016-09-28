@@ -86,7 +86,7 @@ class Filter
 
         // If both are a document ...
         if ($this->isDocument($filterValue) && $this->isDocument($entryValue)) {
-            Logger::log($filterValue . " and " . $entryValue . " are both documents.\n");
+            Logger::log("query:" . json_encode($filterValue) . " and entry:" . json_encode($entryValue) . " are both documents.\n");
 
             // If filter is an operator ...
             if ($this->isOperator($filterValue)) {
