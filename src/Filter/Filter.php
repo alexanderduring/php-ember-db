@@ -31,7 +31,7 @@ class Filter
 
 
 
-    public function __construct($filterArray)
+    public function __construct(array $filterArray)
     {
         $this->filterData = $filterArray;
     }
@@ -47,7 +47,7 @@ class Filter
 
 
 
-    private function matchesDocument($filterArray, $entryArray)
+    private function matchesDocument(array $filterArray, array $entryArray)
     {
         $isMatch = true;
         foreach ($filterArray as $filterKey => $filterValue) {
