@@ -60,10 +60,14 @@ class Parser
         switch ($command) {
             case 'insert':
                 try {
-                    if (count($parameters) != 2) throw new Exception('Incorrect number of parameters for command "insert".');
+                    if (count($parameters) != 2) {
+                        throw new Exception('Incorrect number of parameters for command "insert".');
+                    }
                     $collection = $parameters[0];
                     $document = json_decode($parameters[1], true);
-                    if ($document === null) throw new Exception('The description of the document is not a valid json.');
+                    if ($document === null) {
+                        throw new Exception('The description of the document is not a valid json.');
+                    }
                     $this->documentManager->insert($collection, $document);
                     $output .= "Inserted document in the $collection collection.\n";
                 }
