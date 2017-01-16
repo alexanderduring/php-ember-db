@@ -128,6 +128,12 @@ class Document
 
 
 
+    public function toArray()
+    {
+        return $this->data;
+    }
+
+
     /**
      * @param string $path
      * @return array
