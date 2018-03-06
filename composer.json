@@ -3,7 +3,7 @@
     "type": "library",
     "description": "An embeddable document based database for php.",
     "keywords": ["php", "embedded database", "document based database"],
-    "license": "GNU General Public License v3.0",
+    "license": "GPL-3.0-only",
     "homepage": "https://github.com/alexanderduring/php-ember-db",
     "authors": [
         {
