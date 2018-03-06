@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "83174c1e891ffe174706e20d4a2d5fb7",
-    "content-hash": "f23fb414262beb2b101f5b966e0519ed",
+    "hash": "45d1b0e4c68960e4a3117573faaa79a9",
+    "content-hash": "4cf240d7d20a7cbc424421f6c4066b03",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -1226,7 +1226,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.5",
+            "version": "v3.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
@@ -1340,7 +1340,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.45"
+        "php": ">=5.6"
     },
     "platform-dev": []
 }
