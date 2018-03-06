@@ -51,10 +51,10 @@ class Document
         $segments = $this->getPathSegments($path);
 
         foreach ($segments as $key) {
-            if (!array_key_exists($key, $subtree)) {
-                $exists = false;
-            } else {
+            if (is_array($subtree) && array_key_exists($key, $subtree)) {
                 $subtree = $subtree[$key];
+            } else {
+                $exists = false;
             }
         }
 
