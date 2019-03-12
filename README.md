@@ -74,11 +74,11 @@ To insert a document into a collection:
 $documentManager = new DocumentManager();
 $documentManager->setDatabasePath(__DIR__.'/data');
 
-$car = array(
+$car = [
     'license-number' => 'HH-DS 1243',
     'manufacturer' => 'BMW',
     'model' => '325i'
-);
+];
 
 // Add an entry to the collection
 $documentManager->insert('cars', $car);
@@ -87,11 +87,11 @@ $documentManager->insert('cars', $car);
 To insert multiple documents into a collection:
 
 ```php
-$cars = array(
-    array('manufacturer' => 'BMW', 'model' => '325i', 'color' => 'blue'),
-    array('manufacturer' => 'VW', 'model' => 'Golf', 'color' => 'yellow'),
-    array('manufacturer' => 'Fiat', 'model' => 'Punto', 'color' => 'blue')
-);
+$cars = [
+    ['manufacturer' => 'BMW', 'model' => '325i', 'color' => 'blue'],
+    ['manufacturer' => 'VW', 'model' => 'Golf', 'color' => 'yellow'],
+    ['manufacturer' => 'Fiat', 'model' => 'Punto', 'color' => 'blue']
+];
 $documentManager->insertMany('cars', $cars);
 ```
 ### Remove documents
@@ -109,7 +109,7 @@ $documents = $documentManager->find('cars');
 To select all cars, that have a blue color:
 
 ```php
-$filter = array('color' => 'blue');
+$filter = ['color' => 'blue'];
 $documents = $documentManager->find('cars', $filter);
 ```
 
@@ -131,16 +131,16 @@ These filter operators are currently available:
 Query for all cars with more than 36 kw engine power:
 
 ```php
-$filter = array('engine' => array(
-    'powerInKw' => array('$gt' => 36)
-));
+$filter = ['engine' => [
+    'powerInKw' => ['$gt' => 36]
+]];
 $documents = $documentManager->find('cars', $filter);
 ```
 
 Query for all cars with a manufacturer other than Fiat:
 
 ```php
-$filter = array('manufacturer' => array('$ne' => 'Fiat'));
+$filter = ['manufacturer' => ['$ne' => 'Fiat']];
 $documents = $documentManager->find('cars', $filter);
 ```
 
