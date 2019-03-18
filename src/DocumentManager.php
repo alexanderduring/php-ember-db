@@ -23,7 +23,7 @@
 
 namespace EmberDb;
 
-use EmberDb\Filter\Filter;
+use EmberDb\Collection\Collection;
 
 /**
  * The class DocumentManager is responsible for acting as an interface to the database.
@@ -31,6 +31,8 @@ use EmberDb\Filter\Filter;
 class DocumentManager
 {
     private $config = array();
+
+    private $collections = [];
 
 
 
@@ -58,14 +60,16 @@ class DocumentManager
 
     public function insert($collectionName, $document)
     {
-        $this->writeEntries($collectionName, array($document));
+        $collection = $this->getCollection($collectionName);
+        $collection->insert($document);
     }
 
 
 
     public function insertMany($collectionName, $documents)
     {
-        $this->writeEntries($collectionName, $documents);
+        $collection = $this->getCollection($collectionName);
+        $collection->insertMany($documents);
     }
 
 
@@ -75,80 +79,27 @@ class DocumentManager
      * @param array $filter
      * @return Document[]
      */
-    public function find($collectionName, $filter = array())
+    public function find(string $collectionName, array $filter = array()): array
     {
-        $documents = array();
-
-        $entries = $this->readEntries($collectionName, $filter);
-        foreach ($entries as $entry) {
-            $documents[] = new Document($entry);
-        }
-
-        return $documents;
+        return $this->getCollection($collectionName)->find($filter);
     }
 
 
 
     public function remove($collectionName)
     {
-        $filePath = $this->getCollectionFilePath($collectionName);
-        if (file_exists($filePath)) {
-            unlink($filePath);
-        }
+        $this->getCollection($collectionName)->remove();
     }
 
 
 
-    private function readEntries($collectionName, $filterArray)
+    private function getCollection(string $collectionName): Collection
     {
-        $entries = array();
-
-        $filter = new Filter($filterArray);
-
-        // Open file for reading
-        $collectionFilePath = $this->getCollectionFilePath($collectionName);
-        $file = fopen($collectionFilePath, 'r');
-
-        // Read file line by line
-        while (($buffer = fgets($file)) !== false) {
-            $entry = json_decode(trim($buffer), true);
-            // Match entry against filter
-            if ($filter->matchesEntry($entry)) {
-                $entries[] = $entry;
-            }
+        if (!array_key_exists($collectionName, $this->collections)) {
+            $collection = new Collection($collectionName, $this->getDatabasePath());
+            $this->collections[$collectionName] = $collection;
         }
 
-        if (!feof($file)) {
-            throw new Exception('File pointer does not point to end of file.');
-        }
-
-        // Close file
-        fclose($file);
-
-        return $entries;
-    }
-
-
-
-    private function writeEntries($collectionName, $documents)
-    {
-        // Open or create file for writing
-        $collectionFilePath = $this->getCollectionFilePath($collectionName);
-        $collectionFileHandle = fopen($collectionFilePath, 'a');
-
-        // Add entries to end of file
-        foreach ($documents as $document) {
-            fwrite($collectionFileHandle, json_encode($document)."\n");
-        }
-
-        // Close file
-        fclose($collectionFileHandle);
-    }
-
-
-
-    private function getCollectionFilePath($collectionName)
-    {
-        return $this->getDatabasePath().'/'.$collectionName.'.edb';
+        return $this->collections[$collectionName];
     }
 }
