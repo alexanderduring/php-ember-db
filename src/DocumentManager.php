@@ -58,7 +58,7 @@ class DocumentManager
 
 
 
-    public function insert($collectionName, $document)
+    public function insert($collectionName, Document $document)
     {
         $collection = $this->getCollection($collectionName);
         $collection->insert($document);

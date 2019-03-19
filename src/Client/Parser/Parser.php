@@ -24,6 +24,7 @@
 namespace EmberDb\Client\Parser;
 
 use EmberDb\Client\Exception;
+use EmberDb\Document;
 use EmberDb\DocumentManager;
 
 /**
@@ -64,10 +65,13 @@ class Parser
                         throw new Exception('Incorrect number of parameters for command "insert".');
                     }
                     $collection = $parameters[0];
-                    $document = json_decode($parameters[1], true);
-                    if ($document === null) {
+                    $documentData = json_decode($parameters[1], true);
+                    if ($documentData !== null) {
+                        $document = new Document($documentData);
+                    } else {
                         throw new Exception('The description of the document is not a valid json.');
                     }
+
                     $this->documentManager->insert($collection, $document);
                     $output .= "Inserted document in the $collection collection.\n";
                 }
@@ -80,7 +84,7 @@ class Parser
                 $filter = count($parameters) == 2 ? json_decode($parameters[1], true) : array();
                 $documents = $this->documentManager->find($collection, $filter);
                 foreach ($documents as $document) {
-                    $output .= $document->toJson()."\n";
+                    $output .= json_encode($document)."\n";
                 }
                 break;
             case 'pwd':

@@ -23,8 +23,12 @@
 
 namespace EmberDb;
 
-class Document
+use JsonSerializable;
+
+class Document implements JsonSerializable
 {
+    private static $PATH_ID = '_meta.id';
+
     private $data;
 
 
@@ -121,9 +125,23 @@ class Document
 
 
 
-    public function toJson()
+    public function hasId(): bool
     {
-        return json_encode($this->data);
+        return $this->has(self::$PATH_ID);
+    }
+
+
+
+    public function getId(): string
+    {
+        return $this->get(self::$PATH_ID);
+    }
+
+
+
+    public function setId(string $id)
+    {
+        $this->set(self::$PATH_ID, $id);
     }
 
 
@@ -144,5 +162,12 @@ class Document
         $segments = explode('.', $path);
 
         return $segments;
+    }
+
+
+
+    public function jsonSerialize()
+    {
+        return $this->data;
     }
 }

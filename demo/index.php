@@ -21,19 +21,22 @@
  * @license   http://www.gnu.org/licenses GNU General Public License v3.0
  */
 
+use EmberDb\Document;
 use EmberDb\DocumentManager;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$car = array(
+\EmberDb\Logger::setup(__DIR__ . '/messages.log');
+
+$car = new Document([
     'license-number' => 'HH-DS 1243',
     'manufacturer' => 'BMW',
     'model' => '325i',
     'editions' => array('Standard')
-);
+]);
 
 $someCars = array(
-    array(
+    new Document([
         'license-number' => 'HH-EE 1822',
         'manufacturer' => 'Fiat',
         'model' => 'Punto',
@@ -44,8 +47,8 @@ $someCars = array(
             'displacementInLiters' => 1.1
         ),
         'editions' => array('Active', 'Dynamic', 'Emotion', 'Sport', 'Cabriolet')
-    ),
-    array(
+    ]),
+    new Document([
         'manufacturer' => 'Fiat',
         'model' => 'Uno',
         'year' => 1983,
@@ -54,8 +57,8 @@ $someCars = array(
             'powerInKw' => 32,
             'displacementInLiters' => 0.9
         )
-    ),
-    array(
+    ]),
+    new Document([
         'license-number' => 'B-SD 456',
         'manufacturer' => 'VW',
         'model' => 'Golf',
@@ -66,7 +69,7 @@ $someCars = array(
             'displacementInLiters' => 1.1
         ),
         'editions' => array('City', 'Country', 'Gti', 'Cabriolet')
-    )
+    ])
 );
 
 $documentManager = new DocumentManager();
@@ -83,7 +86,7 @@ $documentManager->insertMany('cars', $someCars);
 $documents = $documentManager->find('cars');
 echo "\nAll cars in the collection:\n";
 foreach ($documents as $document) {
-    echo $document->toJson()."\n";
+    echo json_encode($document)."\n";
 }
 
 // Query the collection and output the result
@@ -91,7 +94,7 @@ $documents = $documentManager->find('cars', array('color' => 'blue'));
 echo "\nAll blue cars in the collection:\n";
 
 foreach ($documents as $document) {
-    echo $document->toJson()."\n";
+    echo json_encode($document)."\n";
 }
 
 foreach ($documents as $document) {

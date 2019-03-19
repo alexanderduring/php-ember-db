@@ -51,16 +51,16 @@ class Collection
 
 
 
-    public function insert($document)
+    public function insert(Document $document)
     {
-        $this->writeEntries(array($document));
+        $this->insertEntries(array($document));
     }
 
 
 
     public function insertMany($documents)
     {
-        $this->writeEntries($documents);
+        $this->insertEntries($documents);
     }
 
 
@@ -120,7 +120,7 @@ class Collection
 
 
 
-    private function writeEntries($documents)
+    private function insertEntries($documents)
     {
         // Open or create file for writing
         $collectionFilePath = $this->getCollectionFilePath();
@@ -128,6 +128,7 @@ class Collection
 
         // Add entries to end of file
         foreach ($documents as $document) {
+            $document->setId($this->createId());
             fwrite($collectionFileHandle, json_encode($document)."\n");
         }
 
@@ -140,5 +141,12 @@ class Collection
     private function getCollectionFilePath()
     {
         return $this->path . '/' . $this->name . '.edb';
+    }
+
+
+
+    private function createId(): string
+    {
+        return $id = time() . '-' . mt_rand(1000, 9999);
     }
 }
