@@ -28,6 +28,7 @@ namespace EmberDb\Collection;
 use EmberDb\Document;
 use EmberDb\Exception;
 use EmberDb\Filter\Filter;
+use EmberDb\Logger;
 
 class Collection
 {
@@ -93,25 +94,33 @@ class Collection
     {
         $entries = array();
 
-        // Open file for reading
-        $collectionFilePath = $this->getCollectionFilePath();
-        $file = fopen($collectionFilePath, 'r');
+        try {
+            // Open file for reading
+            $collectionFilePath = $this->getCollectionFilePath();
+            $file = fopen($collectionFilePath, 'r');
 
-        // Read file line by line
-        while (($buffer = fgets($file)) !== false) {
-            $entry = json_decode(trim($buffer), true);
-            // Match entry against filter
-            if ($filter->matchesEntry($entry)) {
-                $entries[] = $entry;
+            $lockAquired = $this->aquireReadLock($file);
+            if (!$lockAquired) {
+                throw new Exception('Lock wait timeout.');
             }
+            Logger::log("Read lock aquired on $collectionFilePath.\n");
+
+            // Read file line by line
+            while (($buffer = fgets($file)) !== false) {
+                $entry = json_decode(trim($buffer), true);
+                // Match entry against filter
+                if ($filter->matchesEntry($entry)) {
+                    $entries[] = $entry;
+                }
+            }
+
+            // Close file
+            fclose($file);
+
+        } catch (Exception $exception) {
+            Logger::log($exception->getMessage());
         }
 
-        if (!feof($file)) {
-            throw new Exception('File pointer does not point to end of file.');
-        }
-
-        // Close file
-        fclose($file);
 
         return $entries;
     }
@@ -155,5 +164,22 @@ class Collection
     private function createId(): string
     {
         return $id = time() . '-' . mt_rand(1000, 9999);
+    }
+
+
+
+    private function aquireReadLock($file)
+    {
+        $lockAquired = flock($file, LOCK_SH | LOCK_NB);
+
+        if (!$lockAquired) {
+            $deadline = time() + 1 * 60; // 1 minute
+            while (!$lockAquired && time() < $deadline) {
+                sleep(1);
+                $lockAquired = flock($file, LOCK_SH | LOCK_NB);
+            }
+        }
+
+        return $lockAquired;
     }
 }

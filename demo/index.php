@@ -23,10 +23,11 @@
 
 use EmberDb\Document;
 use EmberDb\DocumentManager;
+use EmberDb\Logger;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-\EmberDb\Logger::setup(__DIR__ . '/messages.log');
+Logger::setup(__DIR__ . '/../log/emberdb-debug.log');
 
 $car = new Document([
     'license-number' => 'HH-DS 1243',
