@@ -24,6 +24,7 @@
 namespace EmberDb;
 
 use EmberDb\Collection\Collection;
+use EmberDb\Filter\Filter;
 
 /**
  * The class DocumentManager is responsible for acting as an interface to the database.
@@ -75,12 +76,12 @@ class DocumentManager
 
 
     /**
-     * @param string $collectionName
-     * @param array $filter
      * @return Document[]
      */
-    public function find(string $collectionName, array $filter = array()): array
+    public function find(string $collectionName, array $filterData = []): array
     {
+        $filter = new Filter($filterData);
+
         return $this->getCollection($collectionName)->find($filter);
     }
 

@@ -65,7 +65,7 @@ class Collection
 
 
 
-    public function find(array $filter = []): array
+    public function find(Filter $filter): array
     {
         $documents = [];
 
@@ -89,11 +89,9 @@ class Collection
 
 
 
-    private function readEntries(array $filterArray)
+    private function readEntries(Filter $filter)
     {
         $entries = array();
-
-        $filter = new Filter($filterArray);
 
         // Open file for reading
         $collectionFilePath = $this->getCollectionFilePath();
@@ -135,6 +133,15 @@ class Collection
         // Close file
         fclose($collectionFileHandle);
     }
+
+
+
+    private function removeEntries(array $filterArray)
+    {
+        // Do the same like readEntries does, but copy all non matching
+        // entries into new file and remove the old one.
+    }
+
 
 
 
